@@ -16,6 +16,7 @@ void Ronix::Hooks::CreateMove(IBaseClientDLL *thisptr, int sequence_number, floa
 	CUserCmd *cmd = cstrike->Input->GetUserCmd(sequence_number);
 
 	// Run Hacks
+	Ronix::Hacks::AutoStrafe(cmd);
 	Ronix::Hacks::Bunnyhop(cmd);
 
 	// Normalize

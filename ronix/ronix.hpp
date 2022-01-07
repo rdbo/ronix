@@ -24,6 +24,7 @@ namespace Ronix {
 
 	namespace Hacks {
 		void Bunnyhop(CUserCmd *cmd);
+		void AutoStrafe(CUserCmd *cmd);
 	}
 
 	namespace Hooks {

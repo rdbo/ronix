@@ -27,6 +27,8 @@ std::string Config::MakePath(std::string name)
 void Config::Reset()
 {
 	this->data.bunnyhopEnable = false;
+	this->data.autoStrafeEnable = false;
+	this->data.autoStrafeSilent = true;
 }
 
 void Config::Save(std::string name)
@@ -40,6 +42,8 @@ void Config::Save(std::string name)
 
 	nlohmann::json json_obj = nlohmann::json();
 	json_obj["bunnyhopEnable"] = this->data.bunnyhopEnable;
+	json_obj["autoStrafeEnable"] = this->data.autoStrafeEnable;
+	json_obj["autoStrafeSilent"] = this->data.autoStrafeSilent;
 
 	fs << json_obj.dump();
 	fs.close();
@@ -61,6 +65,8 @@ void Config::Load(std::string name)
 
 	nlohmann::json json_obj = nlohmann::json::parse(filebuf.str());
 	this->data.bunnyhopEnable = json_obj["bunnyhopEnable"];
+	this->data.autoStrafeEnable = json_obj["autoStrafeEnable"];
+	this->data.autoStrafeSilent = json_obj["autoStrafeSilent"];
 
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }

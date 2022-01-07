@@ -5,6 +5,8 @@
 
 struct ConfigData {
 	bool bunnyhopEnable;
+	bool autoStrafeEnable;
+	bool autoStrafeSilent;
 };
 
 class Config {
