@@ -4,7 +4,7 @@ using namespace Ronix::Data;
 
 void Ronix::Hacks::AutoStrafe(CUserCmd *cmd)
 {
-	if (!config->data.autoStrafeEnable || (config->data.autoStrafeHoldKey != SDL_SCANCODE_UNKNOWN && keys[config->data.autoStrafeHoldKey] != SDL_KEYDOWN))
+	if (!config->data.autoStrafeEnable || (config->data.autoStrafeHoldKey != SDL_SCANCODE_UNKNOWN && keys[config->data.autoStrafeHoldKey] != SDL_KEYDOWN) || (config->data.autoStrafeHoldKey == SDL_SCANCODE_UNKNOWN && !(cmd->buttons & IN_JUMP)))
 		return;
 
 	static enum {
@@ -17,7 +17,7 @@ void Ronix::Hacks::AutoStrafe(CUserCmd *cmd)
 	static ConVar *cl_forwardspeed = cstrike->Cvar->FindVar("cl_forwardspeed");
 	float velocity = cstrike->LocalPlayer->GetLocalVelocity().Length2D();
 
-	if ((cmd->buttons & IN_JUMP) && !(cstrike->LocalPlayer->GetFlags() & FL_ONGROUND) && cstrike->LocalPlayer->GetMoveType() != MoveType_t::MOVETYPE_NOCLIP) {
+	if (!(cstrike->LocalPlayer->GetFlags() & FL_ONGROUND) && cstrike->LocalPlayer->GetMoveType() != MoveType_t::MOVETYPE_NOCLIP) {
 		if (cmd->mousedx > 0 || ((cmd->buttons & IN_RIGHT) && !(cmd->buttons & IN_LEFT))) {
 			cmd->sidemove = cl_sidespeed->GetFloat();
 		} else if (cmd->mousedx < 0 || ((cmd->buttons & IN_LEFT) && !(cmd->buttons & IN_RIGHT))) {
