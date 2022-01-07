@@ -5,6 +5,7 @@
 
 class Logger {
 private:
+	const char *filepath;
 	FILE *file = nullptr;
 public:
 	Logger(const char *output_file);

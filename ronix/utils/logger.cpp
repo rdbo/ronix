@@ -2,13 +2,14 @@
 
 Logger::Logger(const char *output_file)
 {
-	this->file = fopen(output_file, "w");
+	this->filepath = output_file;
+	this->file = std::fopen(output_file, "w");
 }
 
 Logger::~Logger()
 {
 	if (this->file)
-		fclose(this->file);
+		std::fclose(this->file);
 }
 
 void Logger::Log(const char *fmt, ...)
@@ -21,7 +22,8 @@ void Logger::Log(const char *fmt, ...)
 
 void Logger::Log(const char *fmt, va_list arg)
 {
-	fprintf(this->file, "[RONIX] ");
-	vfprintf(this->file, fmt, arg);
-	fflush(this->file);
+	// TODO: Only print [RONIX] on new line
+	std::fprintf(this->file, "[RONIX] ");
+	std::vfprintf(this->file, fmt, arg);
+	std::fflush(this->file);
 }

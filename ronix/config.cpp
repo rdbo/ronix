@@ -19,11 +19,6 @@ Config::~Config()
 
 }
 
-void Config::Load(nlohmann::json &json_obj)
-{
-	this->data.bhopEnable = json_obj["bhopEnable"];
-}
-
 ConfigData &Config::GetData()
 {
 	return this->data;
@@ -68,7 +63,9 @@ void Config::Load(std::string name)
 	std::stringstream filebuf;
 	filebuf << fs.rdbuf();
 	fs.close();
+
 	nlohmann::json json_obj = nlohmann::json::parse(filebuf.str());
-	this->Load(json_obj);
+	this->data.bhopEnable = json_obj["bhopEnable"];
+
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }

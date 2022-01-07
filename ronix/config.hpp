@@ -12,7 +12,6 @@ private:
 	std::string path;
 	ConfigData data;
 	std::string MakePath(std::string name);
-	void Load(nlohmann::json &json_obj);
 public:
 	Config();
 	~Config();
