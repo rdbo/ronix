@@ -31,9 +31,9 @@ void Gui::Render()
 	ImGui::Checkbox("Bunnyhop", &data->bunnyhopEnable);
 	ImGui::Separator();
 	ImGui::Checkbox("AutoStrafe", &data->autoStrafeEnable);
-	ImGui::Checkbox("Silent", &data->autoStrafeSilent);
-	ImGui::Hotkey("Key", &data->autoStrafeKey);
-	ImGui::KeyType("Key Type", &data->autoStrafeKeyType);
+	ImGui::Checkbox("Silent##AutoStrafe", &data->autoStrafeSilent);
+	ImGui::Hotkey("Toggle Key##AutoStrafe", &data->autoStrafeToggleKey);
+	ImGui::Hotkey("Hold Key##AutoStrafe", &data->autoStrafeHoldKey);
 	ImGui::Separator();
 	static char config_name[64] = { 0 };
 	ImGui::InputText("Config Name", config_name, sizeof(config_name), ImGuiInputTextFlags_CallbackCharFilter, InputFilterCallback);

@@ -2,9 +2,9 @@
 
 using namespace Ronix::Data;
 
-static void HandleToggle(SDL_Event *event, SDL_Scancode key, ConfigData::KeyType keytype, bool &var)
+static void HandleToggle(SDL_Event *event, SDL_Scancode key, bool &var)
 {
-	if (keytype == ConfigData::KEYTYPE_TOGGLE && SDL_GetScancodeFromKey(event->key.keysym.sym) == key)
+	if (SDL_GetScancodeFromKey(event->key.keysym.sym) == key)
 		var = !var;
 }
 
@@ -28,7 +28,7 @@ static int SDLCALL CustomPollEvent(SDL_Event *event)
 		if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP) {
 			keys[SDL_GetScancodeFromKey(event->key.keysym.sym)] = event->type;
 			if (event->type == SDL_KEYDOWN && !gui->IsVisible()) {
-				HandleToggle(event, config->data.autoStrafeKey, config->data.autoStrafeKeyType, config->data.autoStrafeEnable);
+				HandleToggle(event, config->data.autoStrafeToggleKey, config->data.autoStrafeEnable);
 			}
 		}
 	}

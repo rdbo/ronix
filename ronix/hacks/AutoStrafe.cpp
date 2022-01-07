@@ -4,7 +4,7 @@ using namespace Ronix::Data;
 
 void Ronix::Hacks::AutoStrafe(CUserCmd *cmd)
 {
-	if (!config->data.autoStrafeEnable || (config->data.autoStrafeKey != SDL_SCANCODE_UNKNOWN && config->data.autoStrafeKeyType == ConfigData::KEYTYPE_HOLD && keys[config->data.autoStrafeKey] != SDL_KEYDOWN))
+	if (!config->data.autoStrafeEnable || (config->data.autoStrafeHoldKey != SDL_SCANCODE_UNKNOWN && keys[config->data.autoStrafeHoldKey] != SDL_KEYDOWN))
 		return;
 
 	static enum {

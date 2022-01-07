@@ -4,18 +4,35 @@
 #include "pch.hpp"
 
 struct ConfigData {
-	enum KeyType : int {
-		KEYTYPE_HOLD = 0,
-		KEYTYPE_TOGGLE,
-		KEYTYPE_INVAL
+	enum ChamsType : int {
+		CHAMS_TYPE_ENEMIES = 0,
+		CHAMS_TYPE_ALLIES,
+		CHAMS_TYPE_WEAPONS,
+		CHAMS_TYPE_INVAL
+	};
+
+	enum ChamsMat : int {
+		CHAMS_MAT_NORMAL = 0,
+		CHAMS_MAT_PLASTIC,
+		CHAMS_MAT_GLASS,
+		CHAMS_MAT_INVAL
+	};
+
+	struct ChamsData {
+		ChamsMat mat;
+		float color[4];
+		bool flat;
+		bool wireframe;
+		bool ignore_z;
 	};
 
 	const SDL_Scancode guiKey = SDL_SCANCODE_INSERT;
 	bool bunnyhopEnable;
 	bool autoStrafeEnable;
 	bool autoStrafeSilent;
-	SDL_Scancode autoStrafeKey;
-	KeyType autoStrafeKeyType;
+	SDL_Scancode autoStrafeHoldKey;
+	SDL_Scancode autoStrafeToggleKey;
+	ChamsData chamsData[CHAMS_TYPE_INVAL][3];
 };
 
 class Config {

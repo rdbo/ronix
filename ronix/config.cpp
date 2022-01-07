@@ -13,11 +13,6 @@ static void write_var(nlohmann::json &json_obj, const char *varname, SDL_Scancod
 	json_obj[varname] = static_cast<int>(value);
 }
 
-static void write_var(nlohmann::json &json_obj, const char *varname, ConfigData::KeyType value)
-{
-	json_obj[varname] = static_cast<int>(value);
-}
-
 static void read_var(nlohmann::json &json_obj, const char *varname, bool &var)
 {
 	if (json_obj[varname].is_boolean())
@@ -28,12 +23,6 @@ static void read_var(nlohmann::json &json_obj, const char *varname, SDL_Scancode
 {
 	if (json_obj[varname].is_number_integer())
 		var = static_cast<SDL_Scancode>(json_obj[varname]);
-}
-
-static void read_var(nlohmann::json &json_obj, const char *varname, ConfigData::KeyType &var)
-{
-	if (json_obj[varname].is_number_integer())
-		var = static_cast<ConfigData::KeyType>(json_obj[varname]);
 }
 
 Config::Config()
@@ -62,8 +51,8 @@ void Config::Reset()
 	this->data.bunnyhopEnable = false;
 	this->data.autoStrafeEnable = false;
 	this->data.autoStrafeSilent = false;
-	this->data.autoStrafeKey = SDL_SCANCODE_UNKNOWN;
-	this->data.autoStrafeKeyType = ConfigData::KEYTYPE_HOLD;
+	this->data.autoStrafeHoldKey = SDL_SCANCODE_UNKNOWN;
+	this->data.autoStrafeToggleKey = SDL_SCANCODE_UNKNOWN;
 }
 
 void Config::Save(std::string name)
@@ -80,8 +69,8 @@ void Config::Save(std::string name)
 	write_var(json_obj, "bunnyhopEnable", this->data.bunnyhopEnable);
 	write_var(json_obj, "autoStrafeEnable", this->data.autoStrafeEnable);
 	write_var(json_obj, "autoStrafeSilent", this->data.autoStrafeSilent);
-	write_var(json_obj, "autoStrafeKey", this->data.autoStrafeKey);
-	write_var(json_obj, "autoStrafeKeyType", this->data.autoStrafeKeyType);
+	write_var(json_obj, "autoStrafeHoldKey", this->data.autoStrafeHoldKey);
+	write_var(json_obj, "autoStrafeToggleKey", this->data.autoStrafeToggleKey);
 
 	fs << json_obj.dump();
 	fs.close();
@@ -106,8 +95,8 @@ void Config::Load(std::string name)
 	read_var(json_obj, "bunnyhopEnable", this->data.bunnyhopEnable);
 	read_var(json_obj, "autoStrafeEnable", this->data.autoStrafeEnable);
 	read_var(json_obj, "autoStrafeSilent", this->data.autoStrafeSilent);
-	read_var(json_obj, "autoStrafeKey", this->data.autoStrafeKey);
-	read_var(json_obj, "autoStrafeKeyType", this->data.autoStrafeKeyType);
+	read_var(json_obj, "autoStrafeHoldKey", this->data.autoStrafeHoldKey);
+	read_var(json_obj, "autoStrafeToggleKey", this->data.autoStrafeToggleKey);
 
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }

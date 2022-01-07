@@ -4,7 +4,12 @@ using namespace Ronix::Data;
 
 void ImGui::Hotkey(const char *label, SDL_Scancode *key)
 {
-	ImGui::Text(label);
+	ImGui::PushID(label);
+	std::string label_text = std::string(label);
+	auto pos = label_text.find('#');
+	if (pos != label_text.npos)
+		label_text.resize(pos);
+	ImGui::Text(label_text.c_str());
 	ImGui::SameLine();
 
 	std::stringstream ss;
@@ -22,10 +27,6 @@ void ImGui::Hotkey(const char *label, SDL_Scancode *key)
 		*key = SDL_SCANCODE_UNKNOWN;
 		gui->SetKeyListen(nullptr);
 	}
-}
 
-void ImGui::KeyType(const char *label, ConfigData::KeyType *keytype)
-{
-	static const char *items[ConfigData::KEYTYPE_INVAL] = { "Hold", "Toggle" };
-	ImGui::ListBox(label, reinterpret_cast<int *>(keytype), items, ConfigData::KEYTYPE_INVAL);
+	ImGui::PopID();
 }

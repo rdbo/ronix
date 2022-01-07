@@ -5,7 +5,6 @@
 
 namespace ImGui {
 	void Hotkey(const char *label, SDL_Scancode *key);
-	void KeyType(const char *label, ConfigData::KeyType *keytype);
 }
 
 #endif
