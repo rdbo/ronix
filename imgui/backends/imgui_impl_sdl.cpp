@@ -68,6 +68,10 @@
 #define SDL_HAS_MOUSE_FOCUS_CLICKTHROUGH    SDL_VERSION_ATLEAST(2,0,5)
 #define SDL_HAS_VULKAN                      SDL_VERSION_ATLEAST(2,0,6)
 
+// Patch: disable global mouse capture
+#undef SDL_HAS_CAPTURE_AND_GLOBAL_MOUSE
+#define SDL_HAS_CAPTURE_AND_GLOBAL_MOUSE 0
+
 // SDL Data
 struct ImGui_ImplSDL2_Data
 {
