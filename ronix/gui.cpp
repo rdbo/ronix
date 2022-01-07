@@ -1,5 +1,6 @@
 #include "gui.hpp"
 #include <ronix.hpp>
+#include "imgui_ext.hpp"
 
 using namespace Ronix::Data;
 
@@ -31,6 +32,7 @@ void Gui::Render()
 	ImGui::Separator();
 	ImGui::Checkbox("AutoStrafe", &data->autoStrafeEnable);
 	ImGui::Checkbox("Silent", &data->autoStrafeSilent);
+	ImGui::Hotkey("Key", &data->autoStrafeKey);
 	ImGui::Separator();
 	static char config_name[64] = { 0 };
 	ImGui::InputText("Config Name", config_name, sizeof(config_name), ImGuiInputTextFlags_CallbackCharFilter, InputFilterCallback);
@@ -59,4 +61,14 @@ void Gui::SetVisiblity(bool state)
 void Gui::ToggleVisibility()
 {
 	this->SetVisiblity(!this->IsVisible());
+}
+
+SDL_Keycode *Gui::GetKeyListen()
+{
+	return this->keyListen;
+}
+
+void Gui::SetKeyListen(SDL_Keycode *key)
+{
+	this->keyListen = key;
 }

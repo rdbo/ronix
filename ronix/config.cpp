@@ -3,6 +3,28 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
+static void write_var(nlohmann::json &json_obj, const char *varname, bool value)
+{
+	json_obj[varname] = value;
+}
+
+static void write_var(nlohmann::json &json_obj, const char *varname, SDL_Keycode value)
+{
+	json_obj[varname] = static_cast<int>(value);
+}
+
+static void read_var(nlohmann::json &json_obj, const char *varname, bool &var)
+{
+	if (json_obj[varname].is_boolean())
+		var = json_obj[varname];
+}
+
+static void read_var(nlohmann::json &json_obj, const char *varname, SDL_Keycode &var)
+{
+	if (json_obj[varname].is_number_integer())
+		var = static_cast<SDL_Keycode>(json_obj[varname]);
+}
+
 Config::Config()
 {
 	this->path = std::string("/home/") + getlogin() + "/.ronix";
@@ -29,6 +51,8 @@ void Config::Reset()
 	this->data.bunnyhopEnable = false;
 	this->data.autoStrafeEnable = false;
 	this->data.autoStrafeSilent = true;
+	this->data.autoStrafeKey = SDLK_UNKNOWN;
+	this->data.autoStrafeKeyType = ConfigData::KEYTYPE_HOLD;
 }
 
 void Config::Save(std::string name)
@@ -41,9 +65,11 @@ void Config::Save(std::string name)
 	}
 
 	nlohmann::json json_obj = nlohmann::json();
-	json_obj["bunnyhopEnable"] = this->data.bunnyhopEnable;
-	json_obj["autoStrafeEnable"] = this->data.autoStrafeEnable;
-	json_obj["autoStrafeSilent"] = this->data.autoStrafeSilent;
+
+	write_var(json_obj, "bunnyhopEnable", this->data.bunnyhopEnable);
+	write_var(json_obj, "autoStrafeEnable", this->data.autoStrafeEnable);
+	write_var(json_obj, "autoStrafeSilent", this->data.autoStrafeSilent);
+	write_var(json_obj, "autoStrafeKey", this->data.autoStrafeKey);
 
 	fs << json_obj.dump();
 	fs.close();
@@ -64,9 +90,11 @@ void Config::Load(std::string name)
 	fs.close();
 
 	nlohmann::json json_obj = nlohmann::json::parse(filebuf.str());
-	this->data.bunnyhopEnable = json_obj["bunnyhopEnable"];
-	this->data.autoStrafeEnable = json_obj["autoStrafeEnable"];
-	this->data.autoStrafeSilent = json_obj["autoStrafeSilent"];
+
+	read_var(json_obj, "bunnyhopEnable", this->data.bunnyhopEnable);
+	read_var(json_obj, "autoStrafeEnable", this->data.autoStrafeEnable);
+	read_var(json_obj, "autoStrafeSilent", this->data.autoStrafeSilent);
+	read_var(json_obj, "autoStrafeKey", this->data.autoStrafeKey);
 
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }

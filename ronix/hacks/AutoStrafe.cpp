@@ -22,15 +22,15 @@ void Ronix::Hacks::AutoStrafe(CUserCmd *cmd)
 			cmd->sidemove = cl_sidespeed->GetFloat();
 		} else if (cmd->mousedx < 0 || ((cmd->buttons & IN_LEFT) && !(cmd->buttons & IN_RIGHT))) {
 			cmd->sidemove = -cl_sidespeed->GetFloat();
-		} else if (velocity <= 50.0f) {
+		} else if (velocity <= 29.0f) {
 			cmd->forwardmove = cl_forwardspeed->GetFloat();
 		} else {
 			float strafe_ang = 0.0f;
 			auto active_wpn = cstrike->LocalPlayer->GetActiveWeapon();
-			if (!(active_wpn->HasPrimaryAmmo() && (cmd->buttons & IN_ATTACK)) && !(!std::strcmp(active_wpn->GetName(), "weapon_knife") && (cmd->buttons & (IN_ATTACK | IN_ATTACK2)))) {
-				float air_speed_cap = cstrike->GameMovement->GetAirSpeedCap();
-				strafe_ang = air_speed_cap * std::fabs(air_speed_cap / velocity);
-			}
+			/* if (!(active_wpn->HasPrimaryAmmo() && (cmd->buttons & IN_ATTACK)) && !(!std::strcmp(active_wpn->GetName(), "weapon_knife") && (cmd->buttons & (IN_ATTACK | IN_ATTACK2)))) { */
+			float air_speed_cap = cstrike->GameMovement->GetAirSpeedCap();
+			strafe_ang = air_speed_cap * std::fabs(air_speed_cap / velocity);
+			/* } */
 
 			if (last_strafe == STRAFE_LEFT) {
 				cmd->viewangles.y += strafe_ang;
