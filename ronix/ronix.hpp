@@ -18,6 +18,7 @@ namespace Ronix {
 		extern std::unique_ptr<Config> config;
 		extern std::unique_ptr<Gui> gui;
 		extern std::unique_ptr<cstrike_t> cstrike;
+		extern Uint32 keys[SDL_NUM_SCANCODES];
 		extern std::unique_ptr<VmtMgr> BaseClientDllVmt;
 		extern std::unique_ptr<VmtMgr> ModelRenderVmt;
 	}

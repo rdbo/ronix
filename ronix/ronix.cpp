@@ -7,6 +7,7 @@ std::unique_ptr<Logger> Ronix::Data::logger;
 std::unique_ptr<Config> Ronix::Data::config;
 std::unique_ptr<Gui> Ronix::Data::gui;
 std::unique_ptr<cstrike_t> Ronix::Data::cstrike;
+Uint32 Ronix::Data::keys[SDL_NUM_SCANCODES] = { 0 };
 std::unique_ptr<VmtMgr> Ronix::Data::BaseClientDllVmt;
 std::unique_ptr<VmtMgr> Ronix::Data::ModelRenderVmt;
 

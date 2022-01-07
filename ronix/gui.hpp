@@ -6,15 +6,15 @@
 class Gui {
 private:
 	bool visible = false;
-	SDL_Keycode *keyListen = nullptr;
+	SDL_Scancode *keyListen = nullptr;
 public:
 	void Setup();
 	void Render();
 	bool IsVisible();
 	void SetVisiblity(bool state);
 	void ToggleVisibility();
-	SDL_Keycode *GetKeyListen();
-	void SetKeyListen(SDL_Keycode *key);
+	SDL_Scancode *GetKeyListen();
+	void SetKeyListen(SDL_Scancode *key);
 };
 
 #endif

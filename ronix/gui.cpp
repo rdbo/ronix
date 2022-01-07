@@ -33,6 +33,7 @@ void Gui::Render()
 	ImGui::Checkbox("AutoStrafe", &data->autoStrafeEnable);
 	ImGui::Checkbox("Silent", &data->autoStrafeSilent);
 	ImGui::Hotkey("Key", &data->autoStrafeKey);
+	ImGui::KeyType("Key Type", &data->autoStrafeKeyType);
 	ImGui::Separator();
 	static char config_name[64] = { 0 };
 	ImGui::InputText("Config Name", config_name, sizeof(config_name), ImGuiInputTextFlags_CallbackCharFilter, InputFilterCallback);
@@ -63,12 +64,12 @@ void Gui::ToggleVisibility()
 	this->SetVisiblity(!this->IsVisible());
 }
 
-SDL_Keycode *Gui::GetKeyListen()
+SDL_Scancode *Gui::GetKeyListen()
 {
 	return this->keyListen;
 }
 
-void Gui::SetKeyListen(SDL_Keycode *key)
+void Gui::SetKeyListen(SDL_Scancode *key)
 {
 	this->keyListen = key;
 }

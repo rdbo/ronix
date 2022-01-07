@@ -6,14 +6,15 @@
 struct ConfigData {
 	enum KeyType : int {
 		KEYTYPE_HOLD,
-		KEYTYPE_TOGGLE
+		KEYTYPE_TOGGLE,
+		KEYTYPE_INVAL
 	};
 
-	const SDL_Keycode guiKey = SDLK_INSERT;
+	const SDL_Scancode guiKey = SDL_SCANCODE_INSERT;
 	bool bunnyhopEnable;
 	bool autoStrafeEnable;
 	bool autoStrafeSilent;
-	SDL_Keycode autoStrafeKey;
+	SDL_Scancode autoStrafeKey;
 	KeyType autoStrafeKeyType;
 };
 
