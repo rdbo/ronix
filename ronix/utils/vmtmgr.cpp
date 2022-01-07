@@ -1,7 +1,7 @@
-#include "vmt.hpp"
+#include "vmtmgr.hpp"
 #include "memory.hpp"
 
-VMT::VMT(void **vmt)
+VmtMgr::VmtMgr(void **vmt)
 {
 	this->vmt = vmt;
 	this->length = 0;
@@ -14,17 +14,17 @@ VMT::VMT(void **vmt)
 	Memory::Protect(this->vmt, this->length * sizeof(this->vmt[0]), PROT_EXEC | PROT_READ | PROT_WRITE);
 }
 
-VMT::~VMT()
+VmtMgr::~VmtMgr()
 {
 	// TODO: Restore Memory Protection
 }
 
-void **VMT::GetVMT()
+void **VmtMgr::GetVmt()
 {
 	return this->vmt;
 }
 
-void *VMT::GetFunction(size_t index)
+void *VmtMgr::GetFunction(size_t index)
 {
 	if (index >= this->length)
 		return nullptr;
@@ -32,7 +32,7 @@ void *VMT::GetFunction(size_t index)
 	return this->vmt[index];
 }
 
-void *VMT::GetOriginal(size_t index)
+void *VmtMgr::GetOriginal(size_t index)
 {
 	if (index >= this->length)
 		return nullptr;
@@ -40,7 +40,7 @@ void *VMT::GetOriginal(size_t index)
 	return this->orig_vmt[index];
 }
 
-void VMT::Hook(size_t index, void *func)
+void VmtMgr::Hook(size_t index, void *func)
 {
 	if (index >= this->length)
 		return;
@@ -48,7 +48,7 @@ void VMT::Hook(size_t index, void *func)
 	this->vmt[index] = func;
 }
 
-void VMT::Restore(size_t index)
+void VmtMgr::Restore(size_t index)
 {
 	if (index >= this->length)
 		return;
@@ -56,7 +56,7 @@ void VMT::Restore(size_t index)
 	this->vmt[index] = this->orig_vmt[index];
 }
 
-void VMT::RestoreAll()
+void VmtMgr::RestoreAll()
 {
 	for (size_t i = 0; i < this->length; ++i)
 		this->Restore(i);
