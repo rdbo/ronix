@@ -1,0 +1,2 @@
+Restore original memory protection for VMTs and hooks
+Logger: Only print [RONIX] on new lines

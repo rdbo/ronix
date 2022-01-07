@@ -22,7 +22,6 @@ void Logger::Log(const char *fmt, ...)
 
 void Logger::Log(const char *fmt, va_list arg)
 {
-	// TODO: Only print [RONIX] on new line
 	std::fprintf(this->file, "[RONIX] ");
 	std::vfprintf(this->file, fmt, arg);
 	std::fflush(this->file);

@@ -16,7 +16,7 @@ VmtMgr::VmtMgr(void **vmt)
 
 VmtMgr::~VmtMgr()
 {
-	// TODO: Restore Memory Protection
+	
 }
 
 void **VmtMgr::GetVmt()
