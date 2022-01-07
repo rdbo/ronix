@@ -50,7 +50,7 @@ void SDLCALL Ronix::Hooks::SDL_GL_SwapWindow(SDL_Window *window)
 		ImGui_ImplOpenGL2_Shutdown();
 		ImGui_ImplSDL2_Shutdown();
 		ImGui::DestroyContext();
-		Ronix::Data::cstrike->LauncherMgr->DeleteContext(user_context);
+		// Ronix::Data::cstrike->LauncherMgr->DeleteContext(user_context);
 		return;
 	}
 
