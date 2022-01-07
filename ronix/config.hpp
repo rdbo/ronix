@@ -5,7 +5,7 @@
 
 struct ConfigData {
 	enum KeyType : int {
-		KEYTYPE_HOLD,
+		KEYTYPE_HOLD = 0,
 		KEYTYPE_TOGGLE,
 		KEYTYPE_INVAL
 	};
