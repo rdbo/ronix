@@ -10,7 +10,9 @@ std::unique_ptr<VmtMgr> Ronix::Data::BaseClientDllVmt;
 std::unique_ptr<VmtMgr> Ronix::Data::ModelRenderVmt;
 
 static uintptr_t *pSDL_GL_SwapWindow;
+static uintptr_t oSDL_GL_SwapWindow;
 static uintptr_t *pSDL_PollEvent;
+static uintptr_t oSDL_PollEvent;
 
 void Ronix::Init()
 {
@@ -140,6 +142,25 @@ void Ronix::Init()
 	RONIX_LOG("MaterialSystem: %p\n", Ronix::Data::cstrike->MaterialSystem);
 
 	RONIX_LOG("====================\n");
+
+	// Hooks
+	Memory::Protect(reinterpret_cast<void *>(pSDL_GL_SwapWindow), sizeof(*pSDL_GL_SwapWindow), PROT_EXEC | PROT_READ | PROT_WRITE);
+	oSDL_GL_SwapWindow = *pSDL_GL_SwapWindow;
+	*pSDL_GL_SwapWindow = reinterpret_cast<uintptr_t>(Ronix::Hooks::SDL_GL_SwapWindow) - reinterpret_cast<uintptr_t>(pSDL_GL_SwapWindow) - 4;
+
+	Memory::Protect(reinterpret_cast<void *>(pSDL_PollEvent), sizeof(*pSDL_PollEvent), PROT_EXEC | PROT_READ | PROT_WRITE);
+	oSDL_PollEvent = *pSDL_PollEvent;
+	*pSDL_PollEvent = reinterpret_cast<uintptr_t>(Ronix::Hooks::SDL_PollEvent) - reinterpret_cast<uintptr_t>(pSDL_PollEvent) - 4;
+
+	Ronix::Data::BaseClientDllVmt->Hook(21, reinterpret_cast<void *>(Ronix::Hooks::CreateMove));
+	Ronix::Data::ModelRenderVmt->Hook(19, reinterpret_cast<void *>(Ronix::Hooks::DrawModelExecute));
+
+	RONIX_LOG("Hooks Initialized\n");
+	RONIX_LOG("====================\n");
+
+	// ---
+	Color col = Color(255, 0, 0);
+	Ronix::Data::cstrike->Cvar->ConsoleColorPrintf(col, "[RONIX] Loaded\n");
 }
 
 void Ronix::Shutdown()
@@ -147,6 +168,12 @@ void Ronix::Shutdown()
 	if (Ronix::Data::hasShutdown)
 		return;
 	
+	Ronix::Data::ModelRenderVmt->Restore(19);
+	Ronix::Data::BaseClientDllVmt->Restore(21);
+
+	*pSDL_PollEvent = oSDL_PollEvent;
+	*pSDL_GL_SwapWindow = oSDL_GL_SwapWindow;
+
 	Ronix::Data::hasShutdown = true;
 	RONIX_LOG("Unloaded\n");
 }
