@@ -8,17 +8,16 @@ void Gui::Setup()
 
 }
 
-int ConfigNameCallback(ImGuiInputTextCallbackData *data)
+static int InputFilterCallback(ImGuiInputTextCallbackData *data)
 {
-	switch (data->EventChar) {
-	case L'/':
-	case L'\\':
-	case L'-':
-		data->EventChar = 0;
-		return 1;
-	}
+	if (
+		(data->EventChar >= L'a' && data->EventChar <= L'z') ||
+		(data->EventChar >= L'A' && data->EventChar <= L'Z') ||
+		(data->EventChar >= L'0' && data->EventChar <= L'9') ||
+		data->EventChar == ' ' || data->EventChar == '_'
+	) return 0;
 
-	return 0;
+	return 1;
 }
 
 void Gui::Render()
@@ -34,7 +33,7 @@ void Gui::Render()
 	ImGui::Checkbox("Silent", &data->autoStrafeSilent);
 	ImGui::Separator();
 	static char config_name[64] = { 0 };
-	ImGui::InputText("Config Name", config_name, sizeof(config_name), 0, ConfigNameCallback);
+	ImGui::InputText("Config Name", config_name, sizeof(config_name), ImGuiInputTextFlags_CallbackCharFilter, InputFilterCallback);
 	if (ImGui::Button("Load Config"))
 		config->Load(config_name);
 	if (ImGui::Button("Save Config"))
