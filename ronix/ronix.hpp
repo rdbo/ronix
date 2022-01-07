@@ -23,7 +23,7 @@ namespace Ronix {
 	}
 
 	namespace Hacks {
-
+		void Bunnyhop(CUserCmd *cmd);
 	}
 
 	namespace Hooks {

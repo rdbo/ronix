@@ -19,11 +19,6 @@ Config::~Config()
 
 }
 
-ConfigData &Config::GetData()
-{
-	return this->data;
-}
-
 std::string Config::MakePath(std::string name)
 {
 	return this->path + '/' + name + ".ronix";
@@ -31,7 +26,7 @@ std::string Config::MakePath(std::string name)
 
 void Config::Reset()
 {
-	this->data.bhopEnable = false;
+	this->data.bunnyhopEnable = false;
 }
 
 void Config::Save(std::string name)
@@ -44,7 +39,7 @@ void Config::Save(std::string name)
 	}
 
 	nlohmann::json json_obj = nlohmann::json();
-	json_obj["bhopEnable"] = this->data.bhopEnable;
+	json_obj["bunnyhopEnable"] = this->data.bunnyhopEnable;
 
 	fs << json_obj.dump();
 	fs.close();
@@ -65,7 +60,7 @@ void Config::Load(std::string name)
 	fs.close();
 
 	nlohmann::json json_obj = nlohmann::json::parse(filebuf.str());
-	this->data.bhopEnable = json_obj["bhopEnable"];
+	this->data.bunnyhopEnable = json_obj["bunnyhopEnable"];
 
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }
