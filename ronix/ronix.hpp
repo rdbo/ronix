@@ -6,6 +6,7 @@
 #include "utils/vmtmgr.hpp"
 #include "config.hpp"
 #include "cstrike.hpp"
+#include "gui.hpp"
 
 namespace Ronix {
 	void Init();
@@ -15,6 +16,7 @@ namespace Ronix {
 		extern bool hasShutdown;
 		extern std::unique_ptr<Logger> logger;
 		extern std::unique_ptr<Config> config;
+		extern std::unique_ptr<Gui> gui;
 		extern std::unique_ptr<cstrike_t> cstrike;
 		extern std::unique_ptr<VmtMgr> BaseClientDllVmt;
 		extern std::unique_ptr<VmtMgr> ModelRenderVmt;

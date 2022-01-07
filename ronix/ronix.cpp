@@ -5,6 +5,7 @@
 bool Ronix::Data::hasShutdown = false;
 std::unique_ptr<Logger> Ronix::Data::logger;
 std::unique_ptr<Config> Ronix::Data::config;
+std::unique_ptr<Gui> Ronix::Data::gui;
 std::unique_ptr<cstrike_t> Ronix::Data::cstrike;
 std::unique_ptr<VmtMgr> Ronix::Data::BaseClientDllVmt;
 std::unique_ptr<VmtMgr> Ronix::Data::ModelRenderVmt;
@@ -21,6 +22,7 @@ void Ronix::Init()
 	
 	Ronix::Data::config = std::unique_ptr<Config>(new Config());
 	Ronix::Data::cstrike = std::unique_ptr<cstrike_t>(new cstrike_t());
+	Ronix::Data::gui = std::unique_ptr<Gui>(new Gui());
 
 	CreateInterfaceFn fnCreateInterface; // CreateInterface helper
 
