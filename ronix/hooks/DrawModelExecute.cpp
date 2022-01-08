@@ -11,8 +11,8 @@ bool Chams(ConfigData::ChamsData &chamsData)
 
 	IMaterial *mat = nullptr;
 	switch (chamsData.mat) {
-	case ConfigData::CHAMS_MAT_NORMAL:
-		mat = cstrike->MaterialSystem->GetRenderContext()->GetCurrentMaterial();
+	case ConfigData::CHAMS_MAT_FLAT:
+		mat = cstrike->MaterialSystem->FindMaterial("debug/debugtranslucentsinglecolor", nullptr);
 		break;
 	case ConfigData::CHAMS_MAT_PLASTIC:
 		mat = cstrike->MaterialSystem->FindMaterial("debug/debugambientcube", nullptr);
@@ -24,7 +24,7 @@ bool Chams(ConfigData::ChamsData &chamsData)
 		return false;
 	}
 
-	if (chamsData.mat == ConfigData::CHAMS_MAT_NORMAL || chamsData.mat == ConfigData::CHAMS_MAT_PLASTIC)
+	if (chamsData.mat == ConfigData::CHAMS_MAT_FLAT || chamsData.mat == ConfigData::CHAMS_MAT_PLASTIC)
 		cstrike->RenderView->SetColorModulation(chamsData.color);
 	else
 		mat->FindVar("$envmaptint", nullptr)->SetVecValue(chamsData.color[0], chamsData.color[1], chamsData.color[2]);
@@ -34,7 +34,7 @@ bool Chams(ConfigData::ChamsData &chamsData)
 	mat->SetMaterialVarFlag(MATERIAL_VAR_FLAT, chamsData.flat);
 	mat->SetMaterialVarFlag(MATERIAL_VAR_WIREFRAME, chamsData.wireframe);
 	mat->SetMaterialVarFlag(MATERIAL_VAR_IGNOREZ, chamsData.ignoreZ);
-	cstrike->ModelRender->ForcedMaterialOverride(mat, OverrideType_t::OVERRIDE_NORMAL);
+	cstrike->ModelRender->ForcedMaterialOverride(mat);
 	return true;
 }
 

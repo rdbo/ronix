@@ -4,3 +4,4 @@ Destroy user context properly
 Don't rage autostrafe while shooting
 Set config and logger path on constructor
 Chams: Add support for custom material paths
+Prevent crash when loading invalid config

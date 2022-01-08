@@ -105,7 +105,7 @@ void Config::Reset()
 			(*chamsData)[j].ignoreZ = false;
 			for (size_t k = 0; k < sizeof((*chamsData)[j].color) / sizeof((*chamsData)[j].color[0]); ++k)
 				(*chamsData)[j].color[k] = 1.0f;
-			(*chamsData)[j].mat = ConfigData::CHAMS_MAT_NORMAL;
+			(*chamsData)[j].mat = ConfigData::CHAMS_MAT_FLAT;
 		}
 	}
 }

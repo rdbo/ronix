@@ -14,7 +14,7 @@ struct ConfigData {
 	};
 
 	enum ChamsMat : int {
-		CHAMS_MAT_NORMAL = 0,
+		CHAMS_MAT_FLAT = 0,
 		CHAMS_MAT_PLASTIC,
 		CHAMS_MAT_GLASS,
 		CHAMS_MAT_INVAL
