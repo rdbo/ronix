@@ -3,6 +3,8 @@
 
 #include "pch.hpp"
 
+#define CHAMS_COUNT 3
+
 struct ConfigData {
 	enum ChamsType : int {
 		CHAMS_TYPE_ENEMIES = 0,
@@ -19,11 +21,12 @@ struct ConfigData {
 	};
 
 	struct ChamsData {
-		ChamsMat mat;
-		float color[4];
+		bool enable;
 		bool flat;
 		bool wireframe;
-		bool ignore_z;
+		bool ignoreZ;
+		ChamsMat mat;
+		float color[4];
 	};
 
 	const SDL_Scancode guiKey = SDL_SCANCODE_INSERT;
@@ -33,7 +36,8 @@ struct ConfigData {
 	bool autoStrafeRage;
 	SDL_Scancode autoStrafeHoldKey;
 	SDL_Scancode autoStrafeToggleKey;
-	ChamsData chamsData[CHAMS_TYPE_INVAL][3];
+	bool chamsEnable;
+	ChamsData chamsData[CHAMS_TYPE_INVAL][CHAMS_COUNT];
 };
 
 class Config {
