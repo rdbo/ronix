@@ -23,9 +23,9 @@ static void write_var(nlohmann::json &json_obj, const char *varname, ConfigData:
 	for (size_t i = 0; i < ConfigData::CHAMS_TYPE_INVAL; ++i) {
 		for (size_t j = 0; j < CHAMS_COUNT; ++j) {
 			json_obj[varname][i][j]["enable"] = chamsData[i][j].enable;
-			json_obj[varname][i][j]["flat"] = chamsData[i][j].flat;
 			json_obj[varname][i][j]["wireframe"] = chamsData[i][j].wireframe;
 			json_obj[varname][i][j]["ignoreZ"] = chamsData[i][j].ignoreZ;
+			json_obj[varname][i][j]["selfIllum"] = chamsData[i][j].selfIllum;
 			json_obj[varname][i][j]["mat"] = static_cast<int>(chamsData[i][j].mat);
 			json_obj[varname][i][j]["color"] = chamsData[i][j].color;
 		}
@@ -54,9 +54,9 @@ static void read_var(nlohmann::json &json_obj, const char *varname, ConfigData::
 	for (size_t i = 0; i < ConfigData::CHAMS_TYPE_INVAL; ++i) {
 		for (size_t j = 0; j < CHAMS_COUNT; ++j) {
 			chamsData[i][j].enable = json_obj[varname][i][j]["enable"];
-			chamsData[i][j].flat = json_obj[varname][i][j]["flat"];
 			chamsData[i][j].wireframe = json_obj[varname][i][j]["wireframe"];
 			chamsData[i][j].ignoreZ = json_obj[varname][i][j]["ignoreZ"];
+			chamsData[i][j].selfIllum = json_obj[varname][i][j]["selfIllum"];
 			chamsData[i][j].mat = static_cast<ConfigData::ChamsMat>(json_obj[varname][i][j]["mat"]);
 			for (size_t k = 0; k < sizeof(chamsData[i][j].color) / sizeof(chamsData[i][j].color[0]); ++k)
 				chamsData[i][j].color[k] = json_obj[varname][i][j]["color"][k];
@@ -100,12 +100,12 @@ void Config::Reset()
 		auto chamsData = &this->data.chamsData[i];
 		for (size_t j = 0; j < CHAMS_COUNT; ++j) {
 			(*chamsData)[j].enable = false;
-			(*chamsData)[j].flat = false;
 			(*chamsData)[j].wireframe = false;
 			(*chamsData)[j].ignoreZ = false;
+			(*chamsData)[j].selfIllum = false;
+			(*chamsData)[j].mat = ConfigData::CHAMS_MAT_FLAT;
 			for (size_t k = 0; k < sizeof((*chamsData)[j].color) / sizeof((*chamsData)[j].color[0]); ++k)
 				(*chamsData)[j].color[k] = 1.0f;
-			(*chamsData)[j].mat = ConfigData::CHAMS_MAT_FLAT;
 		}
 	}
 }

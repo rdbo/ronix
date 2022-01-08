@@ -23,9 +23,9 @@ struct ConfigData {
 
 	struct ChamsData {
 		bool enable;
-		bool flat;
 		bool wireframe;
 		bool ignoreZ;
+		bool selfIllum;
 		ChamsMat mat;
 		float color[4];
 	};

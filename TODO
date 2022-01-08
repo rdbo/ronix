@@ -5,3 +5,4 @@ Don't rage autostrafe while shooting
 Set config and logger path on constructor
 Chams: Add support for custom material paths
 Prevent crash when loading invalid config
+Fix chams ignore Z (doesn't work behind some boxes and some props)

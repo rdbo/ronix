@@ -55,9 +55,9 @@ void Gui::Render()
 		++chams_num;
 	
 	ImGui::Checkbox("Enable##Chams", &data->chamsData[chams_type][chams_num].enable);
-	ImGui::Checkbox("Flat##Chams", &data->chamsData[chams_type][chams_num].flat);
 	ImGui::Checkbox("Wireframe##Chams", &data->chamsData[chams_type][chams_num].wireframe);
 	ImGui::Checkbox("Ignore Z##Chams", &data->chamsData[chams_type][chams_num].ignoreZ);
+	ImGui::Checkbox("Self Illum##Chams", &data->chamsData[chams_type][chams_num].selfIllum);
 	
 	static const char *mat_type_list[ConfigData::CHAMS_MAT_INVAL] = { "Flat", "Plastic", "Glass" };
 	ImGui::ListBox("Material Type##Chams", reinterpret_cast<int *>(&data->chamsData[chams_type][chams_num].mat), mat_type_list, ConfigData::CHAMS_MAT_INVAL);

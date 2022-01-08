@@ -31,9 +31,9 @@ bool Chams(ConfigData::ChamsData &chamsData)
 	
 	mat->AlphaModulate(chamsData.color[3]);
 
-	mat->SetMaterialVarFlag(MATERIAL_VAR_FLAT, chamsData.flat);
 	mat->SetMaterialVarFlag(MATERIAL_VAR_WIREFRAME, chamsData.wireframe);
 	mat->SetMaterialVarFlag(MATERIAL_VAR_IGNOREZ, chamsData.ignoreZ);
+	mat->SetMaterialVarFlag(MATERIAL_VAR_SELFILLUM, chamsData.selfIllum);
 	cstrike->ModelRender->ForcedMaterialOverride(mat);
 	return true;
 }
