@@ -40,7 +40,7 @@ void Gui::Render()
 
 	static int chams_num = 0;
 	static int chams_type = ConfigData::CHAMS_TYPE_ENEMIES;
-	static const char *chams_type_list[ConfigData::CHAMS_TYPE_INVAL] = { "Enemies", "Allies", "Weapons" };
+	static const char *chams_type_list[ConfigData::CHAMS_TYPE_INVAL] = { "Enemies", "Allies", "Weapons", "Viewmodel" };
 	ImGui::Checkbox("Chams", &data->chamsEnable);
 	ImGui::Hotkey("Toggle Key##Chams", &data->chamsToggleKey);
 	ImGui::Hotkey("Hold Key##Chams", &data->chamsHoldKey);

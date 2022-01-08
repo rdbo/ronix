@@ -46,38 +46,27 @@ void Ronix::Hooks::DrawModelExecute(IVModelRender *thisptr, const DrawModelState
 		return fnDrawModelExecute(thisptr, state, pInfo, pCustomBoneToWorld);
 	
 	const char *model_name = cstrike->ModelInfoClient->GetModelName(pInfo.pModel);
+	ConfigData::ChamsType chams_type = ConfigData::CHAMS_TYPE_INVAL;
 	if (std::strstr(model_name, "models/player") && cstrike->LocalPlayer->GetTeamNumber() > TEAM_SPECTATOR) {
 		auto player = reinterpret_cast<CBasePlayer *>(cstrike->EntityList->GetClientEntity(pInfo.entity_index));
-		if (player && player->IsPlayer() && !player->IsDormant() && player->IsAlive() && player->GetHealth() > 0) {
-			ConfigData::ChamsType chamsType;
-			bool chamsDone = false;
-			if (player->GetTeamNumber() != cstrike->LocalPlayer->GetTeamNumber())
-				chamsType = ConfigData::CHAMS_TYPE_ENEMIES;
-			else
-				chamsType = ConfigData::CHAMS_TYPE_ALLIES;
+		if (player && player->IsPlayer() && !player->IsDormant() && player->IsAlive() && player->GetHealth() > 0)
+			chams_type = player->GetTeamNumber() != cstrike->LocalPlayer->GetTeamNumber() ? ConfigData::CHAMS_TYPE_ENEMIES : ConfigData::CHAMS_TYPE_ALLIES;
+	} else if (std::strstr(model_name, "models/weapons/v_")) {
+		chams_type = ConfigData::CHAMS_TYPE_VIEWMODEL;
+	} else if (std::strstr(model_name, "models/weapons/w_")) {
+		chams_type = ConfigData::CHAMS_TYPE_WEAPONS;
+	}
 
-			for (size_t i = 0; i < CHAMS_COUNT; ++i) {
-				if (Chams(config->data.chamsData[chamsType][i])) {
-					chamsDone = true;
-					fnDrawModelExecute(thisptr, state, pInfo, pCustomBoneToWorld);	
-				}
-			}
-			
-			if (chamsDone) {
-				cstrike->ModelRender->ForcedMaterialOverride(nullptr);
-				return;
-			}
-		}
-	} else if (std::strstr(model_name, "models/weapons")) {
-		bool chamsDone = false;
+	if (chams_type != ConfigData::CHAMS_TYPE_INVAL) {
+		bool chams_done = false;
 		for (size_t i = 0; i < CHAMS_COUNT; ++i) {
-			if (Chams(config->data.chamsData[ConfigData::CHAMS_TYPE_WEAPONS][i])) {
-				chamsDone = true;
+			if (Chams(config->data.chamsData[chams_type][i])) {
+				chams_done = true;
 				fnDrawModelExecute(thisptr, state, pInfo, pCustomBoneToWorld);
 			}
 		}
 		
-		if (chamsDone) {
+		if (chams_done) {
 			cstrike->ModelRender->ForcedMaterialOverride(nullptr);
 			return;
 		}
