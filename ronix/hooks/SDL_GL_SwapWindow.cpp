@@ -16,8 +16,7 @@ void SDLCALL Ronix::Hooks::SDL_GL_SwapWindow(SDL_Window *window)
 		auto imgui_ctx = ImGui::CreateContext();
 		ImGui::SetCurrentContext(imgui_ctx);
 
-		auto imgui_io = ImGui::GetIO();
-		imgui_io.IniFilename = nullptr;
+		ImGui::GetIO().IniFilename = nullptr;
 
 		ImGui_ImplSDL2_InitForOpenGL(window, user_context);
 		ImGui_ImplOpenGL2_Init();
