@@ -58,7 +58,7 @@ void Ronix::Hooks::DrawModelExecute(IVModelRender *thisptr, const DrawModelState
 	} else if (std::strstr(model_name, "models/weapons/w_")) {
 		RONIX_LOG("Model %s\n", model_name);
 		chams_type = ConfigData::CHAMS_TYPE_WEAPONS;
-	} else if (std::strstr(model_name "models/Weapons")) {
+	} else if (std::strstr(model_name, "models/Weapons")) {
 		chams_type = ConfigData::CHAMS_TYPE_GRENADES;
 	}
 
