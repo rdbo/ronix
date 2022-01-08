@@ -42,6 +42,8 @@ void Gui::Render()
 	static int chams_type = ConfigData::CHAMS_TYPE_ENEMIES;
 	static const char *chams_type_list[ConfigData::CHAMS_TYPE_INVAL] = { "Enemies", "Allies", "Weapons" };
 	ImGui::Checkbox("Chams", &data->chamsEnable);
+	ImGui::Hotkey("Toggle Key##Chams", &data->chamsToggleKey);
+	ImGui::Hotkey("Hold Key##Chams", &data->chamsHoldKey);
 	if (ImGui::ListBox("Chams Type##Chams", &chams_type, chams_type_list, ConfigData::CHAMS_TYPE_INVAL))
 		chams_num = 0;
 	ImGui::Text("Current Chams Number: %d", chams_num + 1);

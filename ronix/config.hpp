@@ -37,6 +37,8 @@ struct ConfigData {
 	SDL_Scancode autoStrafeHoldKey;
 	SDL_Scancode autoStrafeToggleKey;
 	bool chamsEnable;
+	SDL_Scancode chamsHoldKey;
+	SDL_Scancode chamsToggleKey;
 	ChamsData chamsData[CHAMS_TYPE_INVAL][CHAMS_COUNT];
 };
 

@@ -29,6 +29,7 @@ static int SDLCALL CustomPollEvent(SDL_Event *event)
 			keys[SDL_GetScancodeFromKey(event->key.keysym.sym)] = event->type;
 			if (event->type == SDL_KEYDOWN && !gui->IsVisible()) {
 				HandleToggle(event, config->data.autoStrafeToggleKey, config->data.autoStrafeEnable);
+				HandleToggle(event, config->data.chamsToggleKey, config->data.chamsEnable);
 			}
 		}
 	}
