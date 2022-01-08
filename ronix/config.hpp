@@ -30,6 +30,7 @@ struct ConfigData {
 	bool bunnyhopEnable;
 	bool autoStrafeEnable;
 	bool autoStrafeSilent;
+	bool autoStrafeRage;
 	SDL_Scancode autoStrafeHoldKey;
 	SDL_Scancode autoStrafeToggleKey;
 	ChamsData chamsData[CHAMS_TYPE_INVAL][3];

@@ -51,6 +51,7 @@ void Config::Reset()
 	this->data.bunnyhopEnable = false;
 	this->data.autoStrafeEnable = false;
 	this->data.autoStrafeSilent = false;
+	this->data.autoStrafeRage = false;
 	this->data.autoStrafeHoldKey = SDL_SCANCODE_UNKNOWN;
 	this->data.autoStrafeToggleKey = SDL_SCANCODE_UNKNOWN;
 }
@@ -69,6 +70,7 @@ void Config::Save(std::string name)
 	write_var(json_obj, "bunnyhopEnable", this->data.bunnyhopEnable);
 	write_var(json_obj, "autoStrafeEnable", this->data.autoStrafeEnable);
 	write_var(json_obj, "autoStrafeSilent", this->data.autoStrafeSilent);
+	write_var(json_obj, "autoStrafeRage", this->data.autoStrafeRage);
 	write_var(json_obj, "autoStrafeHoldKey", this->data.autoStrafeHoldKey);
 	write_var(json_obj, "autoStrafeToggleKey", this->data.autoStrafeToggleKey);
 
@@ -95,6 +97,7 @@ void Config::Load(std::string name)
 	read_var(json_obj, "bunnyhopEnable", this->data.bunnyhopEnable);
 	read_var(json_obj, "autoStrafeEnable", this->data.autoStrafeEnable);
 	read_var(json_obj, "autoStrafeSilent", this->data.autoStrafeSilent);
+	read_var(json_obj, "autoStrafeRage", this->data.autoStrafeRage);
 	read_var(json_obj, "autoStrafeHoldKey", this->data.autoStrafeHoldKey);
 	read_var(json_obj, "autoStrafeToggleKey", this->data.autoStrafeToggleKey);
 

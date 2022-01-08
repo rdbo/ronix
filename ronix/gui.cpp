@@ -32,6 +32,7 @@ void Gui::Render()
 	ImGui::Separator();
 	ImGui::Checkbox("AutoStrafe", &data->autoStrafeEnable);
 	ImGui::Checkbox("Silent##AutoStrafe", &data->autoStrafeSilent);
+	ImGui::Checkbox("Rage##AutoStrafe", &data->autoStrafeRage);
 	ImGui::Hotkey("Toggle Key##AutoStrafe", &data->autoStrafeToggleKey);
 	ImGui::Hotkey("Hold Key##AutoStrafe", &data->autoStrafeHoldKey);
 	ImGui::Separator();
