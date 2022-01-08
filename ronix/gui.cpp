@@ -76,6 +76,19 @@ void Gui::Render()
 	
 	ImGui::Separator();
 
+	if (ImGui::Button("Dump materials")) {
+		MaterialHandle_t hmat;
+		RONIX_LOG("Material List Start\n");
+		hmat = cstrike->MaterialSystem->FirstMaterial();
+		do {
+			IMaterial *mat = cstrike->MaterialSystem->GetMaterial(hmat);
+			RONIX_LOG("%s\n", mat->GetName());
+		} while ((hmat = cstrike->MaterialSystem->NextMaterial(hmat)) != cstrike->MaterialSystem->InvalidMaterial());
+		RONIX_LOG("Material Dump End\n");
+	}
+
+	ImGui::Separator();
+
 	if (ImGui::Button("Unhook"))
 		Ronix::Shutdown();
 	ImGui::End();
