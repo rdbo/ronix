@@ -3,14 +3,16 @@
 
 #include "pch.hpp"
 
-#define CHAMS_COUNT 3
+#define CHAMS_COUNT 5
 
 struct ConfigData {
 	enum ChamsType : int {
 		CHAMS_TYPE_ENEMIES = 0,
 		CHAMS_TYPE_ALLIES,
-		CHAMS_TYPE_WEAPONS,
 		CHAMS_TYPE_VIEWMODEL,
+		CHAMS_TYPE_WEAPONS,
+		CHAMS_TYPE_GRENADES,
+		CHAMS_TYPE_C4,
 		CHAMS_TYPE_INVAL
 	};
 

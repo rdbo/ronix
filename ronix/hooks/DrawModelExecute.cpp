@@ -53,8 +53,13 @@ void Ronix::Hooks::DrawModelExecute(IVModelRender *thisptr, const DrawModelState
 			chams_type = player->GetTeamNumber() != cstrike->LocalPlayer->GetTeamNumber() ? ConfigData::CHAMS_TYPE_ENEMIES : ConfigData::CHAMS_TYPE_ALLIES;
 	} else if (std::strstr(model_name, "models/weapons/v_")) {
 		chams_type = ConfigData::CHAMS_TYPE_VIEWMODEL;
+	} else if (std::strstr(model_name, "models/weapons/w_c4")) {
+		chams_type = ConfigData::CHAMS_TYPE_C4;
 	} else if (std::strstr(model_name, "models/weapons/w_")) {
+		RONIX_LOG("Model %s\n", model_name);
 		chams_type = ConfigData::CHAMS_TYPE_WEAPONS;
+	} else if (std::strstr(model_name "models/Weapons")) {
+		chams_type = ConfigData::CHAMS_TYPE_GRENADES;
 	}
 
 	if (chams_type != ConfigData::CHAMS_TYPE_INVAL) {
