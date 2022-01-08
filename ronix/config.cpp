@@ -18,6 +18,20 @@ static void write_var(nlohmann::json &json_obj, const char *varname, SDL_Scancod
 	write_var(json_obj, varname, static_cast<int>(value));
 }
 
+static void write_var(nlohmann::json &json_obj, const char *varname, ConfigData::ChamsData (&chamsData)[ConfigData::CHAMS_TYPE_INVAL][CHAMS_COUNT])
+{
+	for (size_t i = 0; i < ConfigData::CHAMS_TYPE_INVAL; ++i) {
+		for (size_t j = 0; j < CHAMS_COUNT; ++j) {
+			json_obj[varname][i][j]["enable"] = chamsData[i][j].enable;
+			json_obj[varname][i][j]["flat"] = chamsData[i][j].flat;
+			json_obj[varname][i][j]["wireframe"] = chamsData[i][j].wireframe;
+			json_obj[varname][i][j]["ignoreZ"] = chamsData[i][j].ignoreZ;
+			json_obj[varname][i][j]["mat"] = static_cast<int>(chamsData[i][j].mat);
+			json_obj[varname][i][j]["color"] = chamsData[i][j].color;
+		}
+	}
+}
+
 static void read_var(nlohmann::json &json_obj, const char *varname, bool &var)
 {
 	if (json_obj[varname].is_boolean())
@@ -33,6 +47,21 @@ static void read_var(nlohmann::json &json_obj, const char *varname, int &var)
 static void read_var(nlohmann::json &json_obj, const char *varname, SDL_Scancode &var)
 {
 	read_var(json_obj, varname, reinterpret_cast<int &>(var));
+}
+
+static void read_var(nlohmann::json &json_obj, const char *varname, ConfigData::ChamsData (&chamsData)[ConfigData::CHAMS_TYPE_INVAL][CHAMS_COUNT])
+{
+	for (size_t i = 0; i < ConfigData::CHAMS_TYPE_INVAL; ++i) {
+		for (size_t j = 0; j < CHAMS_COUNT; ++j) {
+			chamsData[i][j].enable = json_obj[varname][i][j]["enable"];
+			chamsData[i][j].flat = json_obj[varname][i][j]["flat"];
+			chamsData[i][j].wireframe = json_obj[varname][i][j]["wireframe"];
+			chamsData[i][j].ignoreZ = json_obj[varname][i][j]["ignoreZ"];
+			chamsData[i][j].mat = static_cast<ConfigData::ChamsMat>(json_obj[varname][i][j]["mat"]);
+			for (size_t k = 0; k < sizeof(chamsData[i][j].color) / sizeof(chamsData[i][j].color[0]); ++k)
+				chamsData[i][j].color[k] = json_obj[varname][i][j]["color"][k];
+		}
+	}
 }
 
 Config::Config()
@@ -106,6 +135,7 @@ void Config::Save(std::string name)
 	write_var(json_obj, "chamsEnable", this->data.chamsEnable);
 	write_var(json_obj, "chamsHoldKey", this->data.chamsHoldKey);
 	write_var(json_obj, "chamsToggleKey", this->data.chamsToggleKey);
+	write_var(json_obj, "chamsData", this->data.chamsData);
 
 	fs << json_obj.dump();
 	fs.close();
@@ -118,7 +148,7 @@ void Config::Load(std::string name)
 		RONIX_LOG("Empty config name\n");
 		return;
 	}
-	
+
 	std::string abspath = this->MakePath(name);
 	std::ifstream fs = std::ifstream(abspath);
 	if (!fs.is_open()) {
@@ -141,6 +171,7 @@ void Config::Load(std::string name)
 	read_var(json_obj, "chamsEnable", this->data.chamsEnable);
 	read_var(json_obj, "chamsHoldKey", this->data.chamsHoldKey);
 	read_var(json_obj, "chamsToggleKey", this->data.chamsToggleKey);
+	read_var(json_obj, "chamsData", this->data.chamsData);
 
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }
