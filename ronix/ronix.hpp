@@ -26,6 +26,7 @@ namespace Ronix {
 	namespace Hacks {
 		void Bunnyhop(CUserCmd *cmd);
 		void AutoStrafe(CUserCmd *cmd);
+		bool Chams(IVModelRender *pModelRender, const DrawModelState_t &state, const ModelRenderInfo_t &pInfo, matrix3x4_t *pCustomBoneToWorld);
 	}
 
 	namespace Hooks {
