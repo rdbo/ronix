@@ -5,10 +5,10 @@
 
 class Logger {
 private:
-	const char *filepath;
+	std::string filepath;
 	FILE *file = nullptr;
 public:
-	Logger(const char *output_file);
+	Logger(std::string output_file);
 	~Logger();
 	void Log(const char *fmt, ...);
 	void Log(const char *fmt, va_list arg);

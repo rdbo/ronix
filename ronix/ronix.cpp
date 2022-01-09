@@ -1,6 +1,8 @@
 #include "ronix.hpp"
 #include "utils/module.hpp"
 #include "utils/memory.hpp"
+#include <dirent.h>
+#include <sys/stat.h>
 
 bool Ronix::Data::hasShutdown = false;
 std::unique_ptr<Logger> Ronix::Data::logger;
@@ -18,10 +20,17 @@ static uintptr_t oSDL_PollEvent;
 
 void Ronix::Init()
 {
-	Ronix::Data::logger = std::unique_ptr<Logger>(new Logger("/tmp/ronix.log"));
+	std::string ronix_dir = std::string("/home/") + getlogin() + "/.ronix";
+	DIR *dirp;
+	if (!(dirp = opendir(ronix_dir.c_str())))
+		mkdir(ronix_dir.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
+	else
+		closedir(dirp);
+	
+	Ronix::Data::logger = std::unique_ptr<Logger>(new Logger(ronix_dir + "/ronix.log"));
 	RONIX_LOG("Loaded\n");
 	
-	Ronix::Data::config = std::unique_ptr<Config>(new Config());
+	Ronix::Data::config = std::unique_ptr<Config>(new Config(ronix_dir));
 	Ronix::Data::cstrike = std::unique_ptr<cstrike_t>(new cstrike_t());
 	Ronix::Data::gui = std::unique_ptr<Gui>(new Gui());
 

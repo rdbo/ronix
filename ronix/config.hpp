@@ -51,7 +51,7 @@ private:
 	std::string MakePath(std::string name);
 public:
 	ConfigData data;
-	Config();
+	Config(std::string path);
 	~Config();
 	void Reset();
 	void Save(std::string name);

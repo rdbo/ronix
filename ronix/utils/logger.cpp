@@ -1,9 +1,9 @@
 #include "logger.hpp"
 
-Logger::Logger(const char *output_file)
+Logger::Logger(std::string output_file)
 {
 	this->filepath = output_file;
-	this->file = std::fopen(output_file, "w");
+	this->file = std::fopen(this->filepath.c_str(), "w");
 }
 
 Logger::~Logger()

@@ -1,7 +1,5 @@
 #include <config.hpp>
 #include <ronix.hpp>
-#include <dirent.h>
-#include <sys/stat.h>
 
 static void write_var(nlohmann::json &json_obj, const char *varname, bool value)
 {
@@ -64,14 +62,9 @@ static void read_var(nlohmann::json &json_obj, const char *varname, ConfigData::
 	}
 }
 
-Config::Config()
+Config::Config(std::string path)
 {
-	this->path = std::string("/home/") + getlogin() + "/.ronix";
-	DIR *dir;
-	if (!(dir = opendir(this->path.c_str())))
-		mkdir(this->path.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
-	else
-		closedir(dir);
+	this->path = path;
 	this->Reset();
 }
 
