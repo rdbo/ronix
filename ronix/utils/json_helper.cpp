@@ -65,7 +65,10 @@ void json_read(nlohmann::json &json_obj, std::string varname, float &var)
 
 void json_read(nlohmann::json &json_obj, std::string varname, float var[], size_t length)
 {
-	for (size_t i = 0; i < length; ++i)
+	if (!json_obj.contains(varname) || json_obj[varname].size() <= 1 || !json_obj[varname][0].is_number_float())
+		return;
+	
+	for (size_t i = 0; i < length && i < json_obj[varname].size(); ++i)
 		var[i] = json_obj[varname][i];
 }
 

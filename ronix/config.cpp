@@ -42,11 +42,17 @@ void Config::Reset()
 		}
 	}
 	this->data.espSnaplineEnable = false;
+	this->data.espSnaplineHoldKey = SDL_SCANCODE_UNKNOWN;
+	this->data.espSnaplineToggleKey = SDL_SCANCODE_UNKNOWN;
 	this->data.espSnaplinePos = ConfigData::ESP_SNAPLINE_BOTTOM;
-	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineColorTeam); ++i)
-		this->data.espSnaplineColorTeam[i] = 1.0f;
-	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineColorEnemy); ++i)
-		this->data.espSnaplineColorEnemy[i] = 1.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineTeamVisColor); ++i)
+		this->data.espSnaplineTeamVisColor[i] = 0.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineEnemyVisColor); ++i)
+		this->data.espSnaplineEnemyVisColor[i] = 0.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineTeamInvisColor); ++i)
+		this->data.espSnaplineTeamInvisColor[i] = 0.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineEnemyInvisColor); ++i)
+		this->data.espSnaplineEnemyInvisColor[i] = 0.0f;
 }
 
 void Config::Save(std::string name)
@@ -75,6 +81,13 @@ void Config::Save(std::string name)
 	json_write(json_obj, "chamsHoldKey", this->data.chamsHoldKey);
 	json_write(json_obj, "chamsToggleKey", this->data.chamsToggleKey);
 	json_write(json_obj, "chamsData", this->data.chamsData);
+	json_write(json_obj, "espSnaplineEnable", this->data.espSnaplineEnable);
+	json_write(json_obj, "espSnaplineHoldKey", this->data.espSnaplineHoldKey);
+	json_write(json_obj, "espSnaplineToggleKey", this->data.espSnaplineToggleKey);
+	json_write(json_obj, "espSnaplineTeamVisColor", this->data.espSnaplineTeamVisColor, RONIX_ARRLEN(this->data.espSnaplineTeamVisColor));
+	json_write(json_obj, "espSnaplineEnemyVisColor", this->data.espSnaplineEnemyVisColor, RONIX_ARRLEN(this->data.espSnaplineEnemyVisColor));
+	json_write(json_obj, "espSnaplineTeamInvisColor", this->data.espSnaplineTeamInvisColor, RONIX_ARRLEN(this->data.espSnaplineTeamInvisColor));
+	json_write(json_obj, "espSnaplineEnemyInvisColor", this->data.espSnaplineEnemyInvisColor, RONIX_ARRLEN(this->data.espSnaplineEnemyInvisColor));
 
 	fs << json_obj.dump();
 	fs.close();
@@ -111,6 +124,13 @@ void Config::Load(std::string name)
 	json_read(json_obj, "chamsHoldKey", this->data.chamsHoldKey);
 	json_read(json_obj, "chamsToggleKey", this->data.chamsToggleKey);
 	json_read(json_obj, "chamsData", this->data.chamsData);
+	json_read(json_obj, "espSnaplineEnable", this->data.espSnaplineEnable);
+	json_read(json_obj, "espSnaplineHoldKey", this->data.espSnaplineHoldKey);
+	json_read(json_obj, "espSnaplineToggleKey", this->data.espSnaplineToggleKey);
+	json_read(json_obj, "espSnaplineTeamVisColor", this->data.espSnaplineTeamVisColor, RONIX_ARRLEN(this->data.espSnaplineTeamVisColor));
+	json_read(json_obj, "espSnaplineEnemyVisColor", this->data.espSnaplineEnemyVisColor, RONIX_ARRLEN(this->data.espSnaplineEnemyVisColor));
+	json_read(json_obj, "espSnaplineTeamInvisColor", this->data.espSnaplineTeamInvisColor, RONIX_ARRLEN(this->data.espSnaplineTeamInvisColor));
+	json_read(json_obj, "espSnaplineEnemyInvisColor", this->data.espSnaplineEnemyInvisColor, RONIX_ARRLEN(this->data.espSnaplineEnemyInvisColor));
 
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }

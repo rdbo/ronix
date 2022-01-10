@@ -27,6 +27,7 @@ void Ronix::Hooks::CreateMove(IBaseClientDLL *thisptr, int sequence_number, floa
 		}
 
 		gameData->players[i].isValid = true;
+		gameData->players[i].isVisible = player->IsVisible();
 		gameData->players[i].team = player->GetTeamNumber();
 		gameData->players[i].pos3d = player->GetAbsOrigin();
 		gameData->players[i].behind = FrustumTransform(cstrike->EngineClient->WorldToScreenMatrix(), gameData->players[i].pos3d, gameData->players[i].pos2d);

@@ -51,9 +51,13 @@ struct ConfigData {
 	SDL_Scancode chamsToggleKey;
 	ChamsData chamsData[CHAMS_TYPE_INVAL][CHAMS_COUNT];
 	bool espSnaplineEnable;
+	SDL_Scancode espSnaplineHoldKey;
+	SDL_Scancode espSnaplineToggleKey;
 	EspSnaplinePos espSnaplinePos;
-	float espSnaplineColorTeam[4];
-	float espSnaplineColorEnemy[4];
+	float espSnaplineTeamVisColor[4];
+	float espSnaplineEnemyVisColor[4];
+	float espSnaplineTeamInvisColor[4];
+	float espSnaplineEnemyInvisColor[4];
 };
 
 class Config {

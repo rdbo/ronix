@@ -30,19 +30,23 @@ void Gui::Render()
 	ImGui::Begin("Ronix");
 	ImGui::Checkbox("Bunnyhop", &data->bunnyhopEnable);
 	ImGui::Separator();
-	ImGui::Checkbox("AutoStrafe", &data->autoStrafeEnable);
-	ImGui::Checkbox("Silent##AutoStrafe", &data->autoStrafeSilent);
-	ImGui::Checkbox("Rage##AutoStrafe", &data->autoStrafeRage);
-	ImGui::Hotkey("Toggle Key##AutoStrafe", &data->autoStrafeToggleKey);
-	ImGui::Hotkey("Hold Key##AutoStrafe", &data->autoStrafeHoldKey);
+	ImGui::Checkbox("Auto Strafe", &data->autoStrafeEnable);
+	ImGui::Checkbox("Silent##Auto Strafe", &data->autoStrafeSilent);
+	ImGui::Checkbox("Rage##Auto Strafe", &data->autoStrafeRage);
+	ImGui::Hotkey("Toggle Key##Auto Strafe", &data->autoStrafeToggleKey);
+	ImGui::Hotkey("Hold Key##Auto Strafe", &data->autoStrafeHoldKey);
 
 	ImGui::Separator();
 
 	static const char *esp_snapline_pos_list[ConfigData::ESP_SNAPLINE_INVAL] = { "Top", "Center", "Bottom" };
 	ImGui::Checkbox("ESP Snapline", &data->espSnaplineEnable);
+	ImGui::Hotkey("Toggle Key##ESP Snapline", &data->espSnaplineToggleKey);
+	ImGui::Hotkey("Hold Key##ESP Snapline", &data->espSnaplineHoldKey);
 	ImGui::ListBox("Position##ESP Snapline", reinterpret_cast<int *>(&data->espSnaplinePos), esp_snapline_pos_list, ConfigData::ESP_SNAPLINE_INVAL);
-	ImGui::ColorEdit4("Color Team##ESP Snapline", data->espSnaplineColorTeam);
-	ImGui::ColorEdit4("Color Enemy##ESP Snapline", data->espSnaplineColorEnemy);
+	ImGui::ColorEdit4("Color Enemy Visible##ESP Snapline", data->espSnaplineEnemyVisColor);
+	ImGui::ColorEdit4("Color Enemy Invisible##ESP Snapline", data->espSnaplineEnemyInvisColor);
+	ImGui::ColorEdit4("Color Team Visible##ESP Snapline", data->espSnaplineTeamVisColor);
+	ImGui::ColorEdit4("Color Team Invisible##ESP Snapline", data->espSnaplineTeamInvisColor);
 
 	ImGui::Separator();
 

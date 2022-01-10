@@ -6,6 +6,7 @@
 
 struct PlayerData {
 	bool isValid;
+	bool isVisible;
 	bool behind;
 	int team;
 	Vector pos2d;
