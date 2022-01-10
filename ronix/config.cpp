@@ -41,6 +41,12 @@ void Config::Reset()
 				(*chamsData)[j].color[k] = 1.0f;
 		}
 	}
+	this->data.espSnaplineEnable = false;
+	this->data.espSnaplinePos = ConfigData::ESP_SNAPLINE_BOTTOM;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineColorTeam); ++i)
+		this->data.espSnaplineColorTeam[i] = 1.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineColorEnemy); ++i)
+		this->data.espSnaplineColorEnemy[i] = 1.0f;
 }
 
 void Config::Save(std::string name)

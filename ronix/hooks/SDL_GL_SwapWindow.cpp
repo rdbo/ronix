@@ -37,6 +37,15 @@ void SDLCALL Ronix::Hooks::SDL_GL_SwapWindow(SDL_Window *window)
 	ImGui::GetIO().WantCaptureMouse = Ronix::Data::gui->IsVisible();
 	ImGui::GetIO().WantCaptureKeyboard = Ronix::Data::gui->IsVisible();
 
+	if (Ronix::Data::cstrike->EngineClient->IsInGame()) {
+		for (size_t i = 1; i < Ronix::Data::gameData->players.size(); ++i) {
+			auto player = &Ronix::Data::gameData->players[i];
+			if (!player->isValid)
+				continue;
+			Ronix::Hacks::EspSnapline(player);
+		}
+	}
+
 	Ronix::Data::gui->Render();
 
 	ImGui::Render();

@@ -9,6 +9,7 @@ Read `LICENSE`
 - Bunnyhop
 - AutoStrafe (Legit/Rage)
 - Chams
+- ESP Snapline
 - Config System
 
 ## Building

@@ -38,6 +38,14 @@ void Gui::Render()
 
 	ImGui::Separator();
 
+	static const char *esp_snapline_pos_list[ConfigData::ESP_SNAPLINE_INVAL] = { "Top", "Center", "Bottom" };
+	ImGui::Checkbox("ESP Snapline", &data->espSnaplineEnable);
+	ImGui::ListBox("Position##ESP Snapline", reinterpret_cast<int *>(&data->espSnaplinePos), esp_snapline_pos_list, ConfigData::ESP_SNAPLINE_INVAL);
+	ImGui::ColorEdit4("Color Team##ESP Snapline", data->espSnaplineColorTeam);
+	ImGui::ColorEdit4("Color Enemy##ESP Snapline", data->espSnaplineColorEnemy);
+
+	ImGui::Separator();
+
 	static int chams_num = 0;
 	static int chams_type = ConfigData::CHAMS_TYPE_ENEMIES;
 	static const char *chams_type_list[ConfigData::CHAMS_TYPE_INVAL] = { "Enemies", "Allies", "Viewmodel", "Weapons", "Grenades", "C4" };

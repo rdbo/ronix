@@ -32,6 +32,13 @@ struct ConfigData {
 		float color[4];
 	};
 
+	enum EspSnaplinePos : int {
+		ESP_SNAPLINE_TOP = 0,
+		ESP_SNAPLINE_CENTER,
+		ESP_SNAPLINE_BOTTOM,
+		ESP_SNAPLINE_INVAL
+	};
+
 	const SDL_Scancode guiKey = SDL_SCANCODE_INSERT;
 	bool bunnyhopEnable;
 	bool autoStrafeEnable;
@@ -43,6 +50,10 @@ struct ConfigData {
 	SDL_Scancode chamsHoldKey;
 	SDL_Scancode chamsToggleKey;
 	ChamsData chamsData[CHAMS_TYPE_INVAL][CHAMS_COUNT];
+	bool espSnaplineEnable;
+	EspSnaplinePos espSnaplinePos;
+	float espSnaplineColorTeam[4];
+	float espSnaplineColorEnemy[4];
 };
 
 class Config {

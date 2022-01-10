@@ -73,4 +73,6 @@
 #include <hl2sdk/public/globalvars_base.h>
 #include <hl2sdk/game/shared/gamemovement.h>
 
+int FrustumTransform( const VMatrix &worldToSurface, const Vector& point, Vector& screen );
+
 #endif
