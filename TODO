@@ -1,6 +1,6 @@
 Restore original memory protection for VMTs and hooks
-Logger: Only print [RONIX] on new lines
 Destroy user context properly
 Don't rage autostrafe while shooting
 Prevent crash when loading invalid config
 Fix chams ignore Z (doesn't work behind some boxes and some props)
+Make sure ~/.ronix is not a file
