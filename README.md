@@ -9,6 +9,7 @@ Read `LICENSE`
 - Bunnyhop
 - AutoStrafe (Legit/Rage)
 - Chams
+- Config System
 
 ## Building
 Run the following commands:
