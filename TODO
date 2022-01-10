@@ -1,6 +1,6 @@
 Restore original memory protection for VMTs and hooks
 Destroy user context properly
 Don't rage autostrafe while shooting
-Prevent crash when loading invalid config
+Fix json_read for chamsData
 Fix chams ignore Z (doesn't work behind some boxes and some props)
 Make sure ~/.ronix is not a file

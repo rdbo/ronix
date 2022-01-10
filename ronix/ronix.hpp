@@ -38,5 +38,6 @@ namespace Ronix {
 }
 
 #define RONIX_LOG Ronix::Data::logger->Log
+#define RONIX_ARRLEN(arr) (sizeof(arr) / sizeof(arr[0]))
 
 #endif
