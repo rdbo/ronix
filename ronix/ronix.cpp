@@ -29,9 +29,6 @@ void Ronix::Init()
 	
 	Ronix::Data::logger = std::unique_ptr<Logger>(new Logger(ronix_dir + "/ronix.log"));
 	RONIX_LOG("Loaded\n");
-	RONIX_LOG("this is");
-	RONIX_LOG(" a test");
-	RONIX_LOG("\n");
 	
 	Ronix::Data::config = std::unique_ptr<Config>(new Config(ronix_dir));
 	Ronix::Data::cstrike = std::unique_ptr<cstrike_t>(new cstrike_t());
