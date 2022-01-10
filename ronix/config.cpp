@@ -46,13 +46,13 @@ void Config::Reset()
 	this->data.espSnaplineToggleKey = SDL_SCANCODE_UNKNOWN;
 	this->data.espSnaplinePos = ConfigData::ESP_SNAPLINE_BOTTOM;
 	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineTeamVisColor); ++i)
-		this->data.espSnaplineTeamVisColor[i] = 0.0f;
+		this->data.espSnaplineTeamVisColor[i] = 1.0f;
 	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineEnemyVisColor); ++i)
-		this->data.espSnaplineEnemyVisColor[i] = 0.0f;
+		this->data.espSnaplineEnemyVisColor[i] = 1.0f;
 	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineTeamInvisColor); ++i)
-		this->data.espSnaplineTeamInvisColor[i] = 0.0f;
+		this->data.espSnaplineTeamInvisColor[i] = 1.0f;
 	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineEnemyInvisColor); ++i)
-		this->data.espSnaplineEnemyInvisColor[i] = 0.0f;
+		this->data.espSnaplineEnemyInvisColor[i] = 1.0f;
 }
 
 void Config::Save(std::string name)
