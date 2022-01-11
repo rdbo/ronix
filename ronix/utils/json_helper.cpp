@@ -45,6 +45,11 @@ void json_write(nlohmann::json &json_obj, std::string varname, ConfigData::Chams
 	}
 }
 
+void json_write(nlohmann::json &json_obj, std::string varname, ConfigData::EspSnaplinePos value)
+{
+	json_write(json_obj, varname, static_cast<int>(value));
+}
+
 void json_read(nlohmann::json &json_obj, std::string varname, bool &var)
 {
 	if (json_obj.contains(varname) && json_obj[varname].is_boolean())
@@ -97,4 +102,9 @@ void json_read(nlohmann::json &json_obj, std::string varname, ConfigData::ChamsD
 			json_read(json_obj[varname][i][j], "color", chamsData[i][j].color, RONIX_ARRLEN(chamsData[i][j].color));
 		}
 	}
+}
+
+void json_read(nlohmann::json &json_obj, std::string varname, ConfigData::EspSnaplinePos &var)
+{
+	json_read(json_obj, varname, reinterpret_cast<int &>(var));
 }

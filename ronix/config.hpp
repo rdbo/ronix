@@ -54,10 +54,12 @@ struct ConfigData {
 	SDL_Scancode espSnaplineHoldKey;
 	SDL_Scancode espSnaplineToggleKey;
 	EspSnaplinePos espSnaplinePos;
+	float espSnaplineThickness;
 	float espSnaplineTeamVisColor[4];
 	float espSnaplineEnemyVisColor[4];
 	float espSnaplineTeamInvisColor[4];
 	float espSnaplineEnemyInvisColor[4];
+	float espSnaplineOutlineColor[4];
 };
 
 class Config {

@@ -43,10 +43,12 @@ void Gui::Render()
 	ImGui::Hotkey("Toggle Key##ESP Snapline", &data->espSnaplineToggleKey);
 	ImGui::Hotkey("Hold Key##ESP Snapline", &data->espSnaplineHoldKey);
 	ImGui::ListBox("Position##ESP Snapline", reinterpret_cast<int *>(&data->espSnaplinePos), esp_snapline_pos_list, ConfigData::ESP_SNAPLINE_INVAL);
+	ImGui::SliderFloat("Thickness##ESP Snapline", &data->espSnaplineThickness, 0.0f, 10.0f, "%.0f", 1.0f);
 	ImGui::ColorEdit4("Color Enemy Visible##ESP Snapline", data->espSnaplineEnemyVisColor);
 	ImGui::ColorEdit4("Color Enemy Invisible##ESP Snapline", data->espSnaplineEnemyInvisColor);
 	ImGui::ColorEdit4("Color Team Visible##ESP Snapline", data->espSnaplineTeamVisColor);
 	ImGui::ColorEdit4("Color Team Invisible##ESP Snapline", data->espSnaplineTeamInvisColor);
+	ImGui::ColorEdit4("Color Outline##ESP Snapline", data->espSnaplineOutlineColor);
 
 	ImGui::Separator();
 
