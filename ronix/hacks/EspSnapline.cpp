@@ -8,22 +8,29 @@ void Ronix::Hacks::EspSnapline(PlayerData *player)
 		return;
 
 	auto draw_list = ImGui::GetBackgroundDrawList();
-	ImVec2 point0;
-	ImVec2 point1;
+	ImVec2 point0 = ImVec2(0.0f, 0.0f);
+	ImVec2 point1 = ImVec2(0.0f, 0.0f);
 
 	switch (config->data.espSnaplinePos) {
-	case ConfigData::ESP_SNAPLINE_TOP:
+	case ConfigData::ESP_SNAPLINE_POS_TOP:
 		point0 = ImVec2(static_cast<float>(gameData->screenRes[0]) / 2.0f, 0.0f);
 		break;
-	case ConfigData::ESP_SNAPLINE_CENTER:
+	case ConfigData::ESP_SNAPLINE_POS_CENTER:
 		point0 = ImVec2(static_cast<float>(gameData->screenRes[0]) / 2.0f, static_cast<float>(gameData->screenRes[1]) / 2.0f);
 		break;
-	case ConfigData::ESP_SNAPLINE_BOTTOM:
+	case ConfigData::ESP_SNAPLINE_POS_BOTTOM:
 		point0 = ImVec2(static_cast<float>(gameData->screenRes[0]) / 2.0f, static_cast<float>(gameData->screenRes[1]));
 		break;
 	}
 
-	point1 = ImVec2(player->pos2d.x, player->pos2d.y);
+	switch (config->data.espSnaplineType) {
+	case ConfigData::ESP_SNAPLINE_TYPE_HEAD:
+		point1 = ImVec2(player->headpos2d.x, player->headpos2d.y);	
+		break;
+	case ConfigData::ESP_SNAPLINE_TYPE_FOOT:
+		point1 = ImVec2(player->headpos2d.x, player->headpos2d.y);
+		break;
+	}
 	
 	draw_list->AddLine(point0, point1, ImColor(config->data.espSnaplineOutlineColor[0], config->data.espSnaplineOutlineColor[1], config->data.espSnaplineOutlineColor[2], config->data.espSnaplineOutlineColor[3]), 2 * config->data.espSnaplineThickness);
 

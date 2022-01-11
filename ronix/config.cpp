@@ -44,7 +44,8 @@ void Config::Reset()
 	this->data.espSnaplineEnable = false;
 	this->data.espSnaplineHoldKey = SDL_SCANCODE_UNKNOWN;
 	this->data.espSnaplineToggleKey = SDL_SCANCODE_UNKNOWN;
-	this->data.espSnaplinePos = ConfigData::ESP_SNAPLINE_BOTTOM;
+	this->data.espSnaplinePos = ConfigData::ESP_SNAPLINE_POS_BOTTOM;
+	this->data.espSnaplineType = ConfigData::ESP_SNAPLINE_TYPE_FOOT;
 	this->data.espSnaplineThickness = 2.0f;
 	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineTeamVisColor); ++i)
 		this->data.espSnaplineTeamVisColor[i] = 1.0f;
@@ -89,6 +90,7 @@ void Config::Save(std::string name)
 	json_write(json_obj, "espSnaplineHoldKey", this->data.espSnaplineHoldKey);
 	json_write(json_obj, "espSnaplineToggleKey", this->data.espSnaplineToggleKey);
 	json_write(json_obj, "espSnaplinePos", this->data.espSnaplinePos);
+	json_write(json_obj, "espSnaplineType", this->data.espSnaplineType);
 	json_write(json_obj, "espSnaplineThickness", this->data.espSnaplineThickness);
 	json_write(json_obj, "espSnaplineTeamVisColor", this->data.espSnaplineTeamVisColor, RONIX_ARRLEN(this->data.espSnaplineTeamVisColor));
 	json_write(json_obj, "espSnaplineEnemyVisColor", this->data.espSnaplineEnemyVisColor, RONIX_ARRLEN(this->data.espSnaplineEnemyVisColor));
@@ -135,6 +137,7 @@ void Config::Load(std::string name)
 	json_read(json_obj, "espSnaplineHoldKey", this->data.espSnaplineHoldKey);
 	json_read(json_obj, "espSnaplineToggleKey", this->data.espSnaplineToggleKey);
 	json_read(json_obj, "espSnaplinePos", this->data.espSnaplinePos);
+	json_read(json_obj, "espSnaplineType", this->data.espSnaplineType);
 	json_read(json_obj, "espSnaplineThickness", this->data.espSnaplineThickness);
 	json_read(json_obj, "espSnaplineTeamVisColor", this->data.espSnaplineTeamVisColor, RONIX_ARRLEN(this->data.espSnaplineTeamVisColor));
 	json_read(json_obj, "espSnaplineEnemyVisColor", this->data.espSnaplineEnemyVisColor, RONIX_ARRLEN(this->data.espSnaplineEnemyVisColor));

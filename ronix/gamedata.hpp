@@ -11,6 +11,8 @@ struct PlayerData {
 	int team;
 	Vector pos2d;
 	Vector pos3d;
+	Vector headpos2d;
+	Vector headpos3d;
 };
 
 struct GameData {

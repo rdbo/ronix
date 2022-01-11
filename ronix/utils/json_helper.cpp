@@ -50,6 +50,11 @@ void json_write(nlohmann::json &json_obj, std::string varname, ConfigData::EspSn
 	json_write(json_obj, varname, static_cast<int>(value));
 }
 
+void json_write(nlohmann::json &json_obj, std::string varname, ConfigData::EspSnaplineType value)
+{
+	json_write(json_obj, varname, static_cast<int>(value));
+}
+
 void json_read(nlohmann::json &json_obj, std::string varname, bool &var)
 {
 	if (json_obj.contains(varname) && json_obj[varname].is_boolean())
@@ -105,6 +110,11 @@ void json_read(nlohmann::json &json_obj, std::string varname, ConfigData::ChamsD
 }
 
 void json_read(nlohmann::json &json_obj, std::string varname, ConfigData::EspSnaplinePos &var)
+{
+	json_read(json_obj, varname, reinterpret_cast<int &>(var));
+}
+
+void json_read(nlohmann::json &json_obj, std::string varname, ConfigData::EspSnaplineType &var)
 {
 	json_read(json_obj, varname, reinterpret_cast<int &>(var));
 }

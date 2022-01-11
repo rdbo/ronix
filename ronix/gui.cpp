@@ -38,11 +38,14 @@ void Gui::Render()
 
 	ImGui::Separator();
 
-	static const char *esp_snapline_pos_list[ConfigData::ESP_SNAPLINE_INVAL] = { "Top", "Center", "Bottom" };
+	static const char *esp_snapline_pos_list[ConfigData::ESP_SNAPLINE_POS_INVAL] = { "Top", "Center", "Bottom" };
+	static const char *esp_snapline_type_list[ConfigData::ESP_SNAPLINE_TYPE_INVAL] = { "Head", "Foot" };
+
 	ImGui::Checkbox("ESP Snapline", &data->espSnaplineEnable);
 	ImGui::Hotkey("Toggle Key##ESP Snapline", &data->espSnaplineToggleKey);
 	ImGui::Hotkey("Hold Key##ESP Snapline", &data->espSnaplineHoldKey);
-	ImGui::ListBox("Position##ESP Snapline", reinterpret_cast<int *>(&data->espSnaplinePos), esp_snapline_pos_list, ConfigData::ESP_SNAPLINE_INVAL);
+	ImGui::ListBox("Position##ESP Snapline", reinterpret_cast<int *>(&data->espSnaplinePos), esp_snapline_pos_list, ConfigData::ESP_SNAPLINE_POS_INVAL);
+	ImGui::ListBox("Type##ESP Snapline", reinterpret_cast<int *>(&data->espSnaplineType), esp_snapline_type_list, ConfigData::ESP_SNAPLINE_TYPE_INVAL);
 	ImGui::SliderFloat("Thickness##ESP Snapline", &data->espSnaplineThickness, 0.0f, 10.0f, "%.0f", 1.0f);
 	ImGui::ColorEdit4("Color Enemy Visible##ESP Snapline", data->espSnaplineEnemyVisColor);
 	ImGui::ColorEdit4("Color Enemy Invisible##ESP Snapline", data->espSnaplineEnemyInvisColor);

@@ -33,10 +33,16 @@ struct ConfigData {
 	};
 
 	enum EspSnaplinePos : int {
-		ESP_SNAPLINE_TOP = 0,
-		ESP_SNAPLINE_CENTER,
-		ESP_SNAPLINE_BOTTOM,
-		ESP_SNAPLINE_INVAL
+		ESP_SNAPLINE_POS_TOP = 0,
+		ESP_SNAPLINE_POS_CENTER,
+		ESP_SNAPLINE_POS_BOTTOM,
+		ESP_SNAPLINE_POS_INVAL
+	};
+
+	enum EspSnaplineType : int {
+		ESP_SNAPLINE_TYPE_HEAD = 0,
+		ESP_SNAPLINE_TYPE_FOOT,
+		ESP_SNAPLINE_TYPE_INVAL
 	};
 
 	const SDL_Scancode guiKey = SDL_SCANCODE_INSERT;
@@ -54,6 +60,7 @@ struct ConfigData {
 	SDL_Scancode espSnaplineHoldKey;
 	SDL_Scancode espSnaplineToggleKey;
 	EspSnaplinePos espSnaplinePos;
+	EspSnaplineType espSnaplineType;
 	float espSnaplineThickness;
 	float espSnaplineTeamVisColor[4];
 	float espSnaplineEnemyVisColor[4];

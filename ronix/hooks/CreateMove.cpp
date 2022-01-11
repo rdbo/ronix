@@ -30,12 +30,20 @@ void Ronix::Hooks::CreateMove(IBaseClientDLL *thisptr, int sequence_number, floa
 		gameData->players[i].isVisible = player->IsVisible();
 		gameData->players[i].team = player->GetTeamNumber();
 		gameData->players[i].pos3d = player->GetAbsOrigin();
+		gameData->players[i].headpos3d = player->EyePosition();
 		gameData->players[i].behind = FrustumTransform(cstrike->EngineClient->WorldToScreenMatrix(), gameData->players[i].pos3d, gameData->players[i].pos2d);
+		FrustumTransform(cstrike->EngineClient->WorldToScreenMatrix(), gameData->players[i].headpos3d, gameData->players[i].headpos2d);
 		gameData->players[i].pos2d.x *= gameData->screenRes[0] / 2.0f;
 		gameData->players[i].pos2d.x += gameData->screenRes[0] / 2.0f;
 		gameData->players[i].pos2d.y *= -1.0f;
 		gameData->players[i].pos2d.y *= gameData->screenRes[1] / 2.0f;
 		gameData->players[i].pos2d.y += gameData->screenRes[1] / 2.0f;
+		
+		gameData->players[i].headpos2d.x *= gameData->screenRes[0] / 2.0f;
+		gameData->players[i].headpos2d.x += gameData->screenRes[0] / 2.0f;
+		gameData->players[i].headpos2d.y *= -1.0f;
+		gameData->players[i].headpos2d.y *= gameData->screenRes[1] / 2.0f;
+		gameData->players[i].headpos2d.y += gameData->screenRes[1] / 2.0f;
 	}
 
 	// Run Hacks
