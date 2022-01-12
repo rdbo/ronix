@@ -72,6 +72,7 @@
 #include <hl2sdk/public/ivrenderview.h>
 #include <hl2sdk/public/globalvars_base.h>
 #include <hl2sdk/game/shared/gamemovement.h>
+#include <hl2sdk/public/engine/IEngineTrace.h>
 
 int FrustumTransform( const VMatrix &worldToSurface, const Vector& point, Vector& screen );
 

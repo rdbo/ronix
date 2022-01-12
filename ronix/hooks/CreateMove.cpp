@@ -27,7 +27,18 @@ void Ronix::Hooks::CreateMove(IBaseClientDLL *thisptr, int sequence_number, floa
 		}
 
 		gameData->players[i].isValid = true;
-		gameData->players[i].isVisible = player->IsVisible();
+
+		Ray_t ray;
+		trace_t trace;
+		ray.Init(cstrike->LocalPlayer->EyePosition(), player->GetAbsOrigin());
+		cstrike->EngineTrace->TraceRay(ray, MASK_NPCWORLDSTATIC | MASK_SHOT, nullptr, &trace);
+		gameData->players[i].isVisible = trace.m_pEnt == reinterpret_cast<CBaseEntity *>(player) || trace.fraction == 1.0f;
+		if (!gameData->players[i].isVisible) {
+			ray.Init(cstrike->LocalPlayer->EyePosition(), player->EyePosition());
+			cstrike->EngineTrace->TraceRay(ray, MASK_NPCWORLDSTATIC | MASK_SHOT, nullptr, &trace);
+			gameData->players[i].isVisible = trace.m_pEnt == reinterpret_cast<CBaseEntity *>(player) || trace.fraction == 1.0f;
+		}
+
 		gameData->players[i].team = player->GetTeamNumber();
 		gameData->players[i].pos3d = player->GetAbsOrigin();
 		gameData->players[i].headpos3d = player->EyePosition();

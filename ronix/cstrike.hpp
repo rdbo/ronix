@@ -11,6 +11,7 @@ struct cstrike_t {
 	CInput *Input;
 	CGlobalVarsBase *GlobalVars;
 	IVEngineClient *EngineClient;
+	IEngineTrace *EngineTrace;
 	IVModelInfoClient *ModelInfoClient;
 	IVModelRender *ModelRender;
 	IVRenderView *RenderView;

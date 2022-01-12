@@ -28,7 +28,7 @@ void Ronix::Hacks::EspSnapline(PlayerData *player)
 		point1 = ImVec2(player->headpos2d.x, player->headpos2d.y);	
 		break;
 	case ConfigData::ESP_SNAPLINE_TYPE_FOOT:
-		point1 = ImVec2(player->headpos2d.x, player->headpos2d.y);
+		point1 = ImVec2(player->pos2d.x, player->pos2d.y);
 		break;
 	}
 	

@@ -123,7 +123,10 @@ void Ronix::Init()
 	RONIX_LOG("CreateInterface: %p\n", reinterpret_cast<void *>(fnCreateInterface));
 
 	Ronix::Data::cstrike->EngineClient = reinterpret_cast<IVEngineClient *>(fnCreateInterface(VENGINE_CLIENT_INTERFACE_VERSION, nullptr));
-	RONIX_LOG("EngineClient: %p\n", Ronix::Data::cstrike->EngineClient);
+	RONIX_LOG("EngineClient: %p\n", reinterpret_cast<void *>(Ronix::Data::cstrike->EngineClient));
+
+	Ronix::Data::cstrike->EngineTrace = reinterpret_cast<IEngineTrace *>(fnCreateInterface(INTERFACEVERSION_ENGINETRACE_CLIENT, nullptr));
+	RONIX_LOG("EngineTrace: %p\n", reinterpret_cast<void *>(Ronix::Data::cstrike->EngineTrace));
 
 	Ronix::Data::cstrike->ModelInfoClient = reinterpret_cast<IVModelInfoClient *>(fnCreateInterface(VMODELINFO_CLIENT_INTERFACE_VERSION, nullptr));
 	RONIX_LOG("ModelInfoClient: %p\n", reinterpret_cast<void *>(Ronix::Data::cstrike->ModelInfoClient));
