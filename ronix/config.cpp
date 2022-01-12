@@ -58,6 +58,10 @@ void Config::Reset()
 	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineOutlineColor) - 1; ++i)
 		this->data.espSnaplineOutlineColor[i] = 0.0f;
 	this->data.espSnaplineOutlineColor[3] = 1.0f;
+	this->data.triggerbotEnable = false;
+	this->data.triggerbotHoldKey = SDL_SCANCODE_UNKNOWN;
+	this->data.triggerbotToggleKey = SDL_SCANCODE_UNKNOWN;
+	this->data.triggerbotDelay = 0.0f;
 }
 
 void Config::Save(std::string name)
@@ -97,6 +101,10 @@ void Config::Save(std::string name)
 	json_write(json_obj, "espSnaplineTeamInvisColor", this->data.espSnaplineTeamInvisColor, RONIX_ARRLEN(this->data.espSnaplineTeamInvisColor));
 	json_write(json_obj, "espSnaplineEnemyInvisColor", this->data.espSnaplineEnemyInvisColor, RONIX_ARRLEN(this->data.espSnaplineEnemyInvisColor));
 	json_write(json_obj, "espSnaplineOutlineColor", this->data.espSnaplineOutlineColor, RONIX_ARRLEN(this->data.espSnaplineOutlineColor));
+	json_write(json_obj, "triggerbotEnable", this->data.triggerbotEnable);
+	json_write(json_obj, "triggerbotHoldKey", this->data.triggerbotHoldKey);
+	json_write(json_obj, "triggerbotToggleKey", this->data.triggerbotToggleKey);
+	json_write(json_obj, "triggerbotDelay", this->data.triggerbotDelay);
 
 	fs << json_obj.dump();
 	fs.close();
@@ -144,6 +152,10 @@ void Config::Load(std::string name)
 	json_read(json_obj, "espSnaplineTeamInvisColor", this->data.espSnaplineTeamInvisColor, RONIX_ARRLEN(this->data.espSnaplineTeamInvisColor));
 	json_read(json_obj, "espSnaplineEnemyInvisColor", this->data.espSnaplineEnemyInvisColor, RONIX_ARRLEN(this->data.espSnaplineEnemyInvisColor));
 	json_read(json_obj, "espSnaplineOutlineColor", this->data.espSnaplineOutlineColor, RONIX_ARRLEN(this->data.espSnaplineOutlineColor));
+	json_read(json_obj, "triggerbotEnable", this->data.triggerbotEnable);
+	json_read(json_obj, "triggerbotHoldKey", this->data.triggerbotHoldKey);
+	json_read(json_obj, "triggerbotToggleKey", this->data.triggerbotToggleKey);
+	json_read(json_obj, "triggerbotDelay", this->data.triggerbotDelay);
 
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }

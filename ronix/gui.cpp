@@ -31,10 +31,17 @@ void Gui::Render()
 	ImGui::Checkbox("Bunnyhop", &data->bunnyhopEnable);
 	ImGui::Separator();
 	ImGui::Checkbox("Auto Strafe", &data->autoStrafeEnable);
-	ImGui::Checkbox("Silent##Auto Strafe", &data->autoStrafeSilent);
-	ImGui::Checkbox("Rage##Auto Strafe", &data->autoStrafeRage);
 	ImGui::Hotkey("Toggle Key##Auto Strafe", &data->autoStrafeToggleKey);
 	ImGui::Hotkey("Hold Key##Auto Strafe", &data->autoStrafeHoldKey);
+	ImGui::Checkbox("Silent##Auto Strafe", &data->autoStrafeSilent);
+	ImGui::Checkbox("Rage##Auto Strafe", &data->autoStrafeRage);
+
+	ImGui::Separator();
+
+	ImGui::Checkbox("Triggerbot", &data->triggerbotEnable);
+	ImGui::Hotkey("Toggle Key##Triggerbot", &data->triggerbotToggleKey);
+	ImGui::Hotkey("Hold Key##Triggerbot", &data->triggerbotHoldKey);
+	ImGui::SliderFloat("Delay (ms)", &data->triggerbotDelay, 0.0f, 200.0f, "%.0f", 1.0f);
 
 	ImGui::Separator();
 

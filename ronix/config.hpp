@@ -67,6 +67,10 @@ struct ConfigData {
 	float espSnaplineTeamInvisColor[4];
 	float espSnaplineEnemyInvisColor[4];
 	float espSnaplineOutlineColor[4];
+	bool triggerbotEnable;
+	SDL_Scancode triggerbotHoldKey;
+	SDL_Scancode triggerbotToggleKey;
+	float triggerbotDelay;
 };
 
 class Config {

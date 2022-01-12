@@ -31,6 +31,7 @@ static int SDLCALL CustomPollEvent(SDL_Event *event)
 				HandleToggle(event, config->data.autoStrafeToggleKey, config->data.autoStrafeEnable);
 				HandleToggle(event, config->data.chamsToggleKey, config->data.chamsEnable);
 				HandleToggle(event, config->data.espSnaplineToggleKey, config->data.espSnaplineEnable);
+				HandleToggle(event, config->data.triggerbotToggleKey, config->data.triggerbotEnable);
 			}
 		}
 	}
