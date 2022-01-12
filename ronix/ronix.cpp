@@ -170,6 +170,7 @@ void Ronix::Init()
 	*pSDL_PollEvent = reinterpret_cast<uintptr_t>(Ronix::Hooks::SDL_PollEvent) - reinterpret_cast<uintptr_t>(pSDL_PollEvent) - 4;
 
 	Ronix::Data::BaseClientDllVmt->Hook(21, reinterpret_cast<void *>(Ronix::Hooks::CreateMove));
+	Ronix::Data::BaseClientDllVmt->Hook(35, reinterpret_cast<void *>(Ronix::Hooks::FrameStageNotify));
 	Ronix::Data::ModelRenderVmt->Hook(19, reinterpret_cast<void *>(Ronix::Hooks::DrawModelExecute));
 
 	RONIX_LOG("Hooks Initialized\n");
@@ -186,6 +187,7 @@ void Ronix::Shutdown()
 		return;
 	
 	Ronix::Data::ModelRenderVmt->Restore(19);
+	Ronix::Data::BaseClientDllVmt->Restore(35);
 	Ronix::Data::BaseClientDllVmt->Restore(21);
 
 	*pSDL_PollEvent = oSDL_PollEvent;

@@ -37,6 +37,7 @@ namespace Ronix {
 		int SDLCALL SDL_PollEvent(SDL_Event *event);
 		void CreateMove(IBaseClientDLL *thisptr, int sequence_number, float input_sample_frametime, bool active);
 		void DrawModelExecute(IVModelRender *thisptr, const DrawModelState_t &state, const ModelRenderInfo_t &pInfo, matrix3x4_t *pCustomBoneToWorld);
+		void FrameStageNotify(IBaseClientDLL *thisptr, ClientFrameStage_t curStage);
 	}
 }
 

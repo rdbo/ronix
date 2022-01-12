@@ -4,7 +4,7 @@ using namespace Ronix::Data;
 
 typedef void (*DrawModelExecuteFn)(IVModelRender *pModelRender, const DrawModelState_t &state, const ModelRenderInfo_t &pInfo, matrix3x4_t *pCustomBoneToWorld);
 
-bool DoChams(ConfigData::ChamsData &chamsData)
+static bool DoChams(ConfigData::ChamsData &chamsData)
 {
 	if (!chamsData.enable)
 		return false;

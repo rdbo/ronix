@@ -19,6 +19,7 @@ struct GameData {
 	std::vector<PlayerData> players;
 	uint screenRes[2];
 	int localPlayerTeam;
+	void Update();
 };
 
 #endif
