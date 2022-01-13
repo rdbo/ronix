@@ -160,6 +160,7 @@ void Config::Load(std::string name)
 
 	nlohmann::json json_obj = nlohmann::json::parse(filebuf.str());
 
+	this->Reset();
 	json_read(json_obj, "bunnyhopEnable", this->data.bunnyhopEnable);
 	json_read(json_obj, "autoStrafeEnable", this->data.autoStrafeEnable);
 	json_read(json_obj, "autoStrafeSilent", this->data.autoStrafeSilent);

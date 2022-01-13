@@ -8,5 +8,3 @@ Fix triggerbot traceray
 Add triggerbot delay
 Add mouse key support
 Organize config + variables
-Add panic button
-Reset config before load

@@ -12,8 +12,25 @@ static int SDLCALL CustomPollEvent(SDL_Event *event)
 {
 	int result = ::SDL_PollEvent(event);
 	if (result) {
-		if (event->type == SDL_KEYDOWN && SDL_GetScancodeFromKey(event->key.keysym.sym) == config->data.guiKey)
-			gui->ToggleVisibility();
+		if (event->type == SDL_KEYDOWN) {
+			static bool panicState = false;
+			auto key = SDL_GetScancodeFromKey(event->key.keysym.sym);
+			if (key == config->data.guiKey && !panicState) {
+				gui->ToggleVisibility();
+			} else if (key == config->data.panicToggleKey) {
+				if (!panicState) {
+					config->Save(".autosave");
+					config->Reset();
+					if (gui->IsVisible())
+						gui->SetVisiblity(false);
+					
+					panicState = true;
+				} else {
+					config->Load(".autosave");
+					panicState = false;
+				}
+			}
+		}
 		
 		if (gui->IsVisible()) {
 			if (event->type == SDL_KEYDOWN && gui->GetKeyListen()) {

@@ -46,6 +46,7 @@ struct ConfigData {
 	};
 
 	const SDL_Scancode guiKey = SDL_SCANCODE_INSERT;
+	const SDL_Scancode panicToggleKey = SDL_SCANCODE_END;
 	bool bunnyhopEnable;
 	bool autoStrafeEnable;
 	bool autoStrafeSilent;
