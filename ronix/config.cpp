@@ -21,11 +21,13 @@ std::string Config::MakePath(std::string name)
 void Config::Reset()
 {
 	this->data.bunnyhopEnable = false;
+
 	this->data.autoStrafeEnable = false;
 	this->data.autoStrafeSilent = false;
 	this->data.autoStrafeRage = false;
 	this->data.autoStrafeHoldKey = SDL_SCANCODE_UNKNOWN;
 	this->data.autoStrafeToggleKey = SDL_SCANCODE_UNKNOWN;
+
 	this->data.chamsEnable = false;
 	this->data.chamsHoldKey = SDL_SCANCODE_UNKNOWN;
 	this->data.chamsToggleKey = SDL_SCANCODE_UNKNOWN;
@@ -41,6 +43,7 @@ void Config::Reset()
 				(*chamsData)[j].color[k] = 1.0f;
 		}
 	}
+
 	this->data.espSnaplineEnable = false;
 	this->data.espSnaplineHoldKey = SDL_SCANCODE_UNKNOWN;
 	this->data.espSnaplineToggleKey = SDL_SCANCODE_UNKNOWN;
@@ -58,10 +61,27 @@ void Config::Reset()
 	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espSnaplineOutlineColor) - 1; ++i)
 		this->data.espSnaplineOutlineColor[i] = 0.0f;
 	this->data.espSnaplineOutlineColor[3] = 1.0f;
+
 	this->data.triggerbotEnable = false;
 	this->data.triggerbotHoldKey = SDL_SCANCODE_UNKNOWN;
 	this->data.triggerbotToggleKey = SDL_SCANCODE_UNKNOWN;
 	this->data.triggerbotDelay = 0.0f;
+	
+	this->data.espBoxEnable = false;
+	this->data.espBoxHoldKey = SDL_SCANCODE_UNKNOWN;
+	this->data.espBoxToggleKey = SDL_SCANCODE_UNKNOWN;
+	this->data.espBoxThickness = 2.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espBoxTeamVisColor); ++i)
+		this->data.espBoxTeamVisColor[i] = 1.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espBoxEnemyVisColor); ++i)
+		this->data.espBoxEnemyVisColor[i] = 1.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espBoxTeamInvisColor); ++i)
+		this->data.espBoxTeamInvisColor[i] = 1.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espBoxEnemyInvisColor); ++i)
+		this->data.espBoxEnemyInvisColor[i] = 1.0f;
+	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espBoxOutlineColor) - 1; ++i)
+		this->data.espBoxOutlineColor[i] = 0.0f;
+	this->data.espBoxOutlineColor[3] = 1.0f;
 }
 
 void Config::Save(std::string name)
@@ -105,6 +125,15 @@ void Config::Save(std::string name)
 	json_write(json_obj, "triggerbotHoldKey", this->data.triggerbotHoldKey);
 	json_write(json_obj, "triggerbotToggleKey", this->data.triggerbotToggleKey);
 	json_write(json_obj, "triggerbotDelay", this->data.triggerbotDelay);
+	json_write(json_obj, "espBoxEnable", this->data.espBoxEnable);
+	json_write(json_obj, "espBoxHoldKey", this->data.espBoxHoldKey);
+	json_write(json_obj, "espBoxToggleKey", this->data.espBoxToggleKey);
+	json_write(json_obj, "espBoxThickness", this->data.espBoxThickness);
+	json_write(json_obj, "espBoxTeamVisColor", this->data.espBoxTeamVisColor, RONIX_ARRLEN(this->data.espBoxTeamVisColor));
+	json_write(json_obj, "espBoxEnemyVisColor", this->data.espBoxEnemyVisColor, RONIX_ARRLEN(this->data.espBoxEnemyVisColor));
+	json_write(json_obj, "espBoxTeamInvisColor", this->data.espBoxTeamInvisColor, RONIX_ARRLEN(this->data.espBoxTeamInvisColor));
+	json_write(json_obj, "espBoxEnemyInvisColor", this->data.espBoxEnemyInvisColor, RONIX_ARRLEN(this->data.espBoxEnemyInvisColor));
+	json_write(json_obj, "espBoxOutlineColor", this->data.espBoxOutlineColor, RONIX_ARRLEN(this->data.espBoxOutlineColor));
 
 	fs << json_obj.dump();
 	fs.close();
@@ -156,6 +185,15 @@ void Config::Load(std::string name)
 	json_read(json_obj, "triggerbotHoldKey", this->data.triggerbotHoldKey);
 	json_read(json_obj, "triggerbotToggleKey", this->data.triggerbotToggleKey);
 	json_read(json_obj, "triggerbotDelay", this->data.triggerbotDelay);
+	json_read(json_obj, "espBoxEnable", this->data.espBoxEnable);
+	json_read(json_obj, "espBoxHoldKey", this->data.espBoxHoldKey);
+	json_read(json_obj, "espBoxToggleKey", this->data.espBoxToggleKey);
+	json_read(json_obj, "espBoxThickness", this->data.espBoxThickness);
+	json_read(json_obj, "espBoxTeamVisColor", this->data.espBoxTeamVisColor, RONIX_ARRLEN(this->data.espBoxTeamVisColor));
+	json_read(json_obj, "espBoxEnemyVisColor", this->data.espBoxEnemyVisColor, RONIX_ARRLEN(this->data.espBoxEnemyVisColor));
+	json_read(json_obj, "espBoxTeamInvisColor", this->data.espBoxTeamInvisColor, RONIX_ARRLEN(this->data.espBoxTeamInvisColor));
+	json_read(json_obj, "espBoxEnemyInvisColor", this->data.espBoxEnemyInvisColor, RONIX_ARRLEN(this->data.espBoxEnemyInvisColor));
+	json_read(json_obj, "espBoxOutlineColor", this->data.espBoxOutlineColor, RONIX_ARRLEN(this->data.espBoxOutlineColor));
 
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }

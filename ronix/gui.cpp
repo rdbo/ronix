@@ -62,6 +62,18 @@ void Gui::Render()
 
 	ImGui::Separator();
 
+	ImGui::Checkbox("ESP Box", &data->espBoxEnable);
+	ImGui::Hotkey("Toggle Key##ESP Box", &data->espBoxToggleKey);
+	ImGui::Hotkey("Hold Key##ESP Box", &data->espBoxHoldKey);
+	ImGui::SliderFloat("Thickness##ESP Box", &data->espBoxThickness, 0.0f, 10.0f, "%.0f", 1.0f);
+	ImGui::ColorEdit4("Color Enemy Visible##ESP Box", data->espBoxEnemyVisColor);
+	ImGui::ColorEdit4("Color Enemy Invisible##ESP Box", data->espBoxEnemyInvisColor);
+	ImGui::ColorEdit4("Color Team Visible##ESP Box", data->espBoxTeamVisColor);
+	ImGui::ColorEdit4("Color Team Invisible##ESP Box", data->espBoxTeamInvisColor);
+	ImGui::ColorEdit4("Color Outline##ESP Box", data->espBoxOutlineColor);
+
+	ImGui::Separator();
+
 	static int chams_num = 0;
 	static int chams_type = ConfigData::CHAMS_TYPE_ENEMIES;
 	static const char *chams_type_list[ConfigData::CHAMS_TYPE_INVAL] = { "Enemies", "Allies", "Viewmodel", "Weapons", "Grenades", "C4" };

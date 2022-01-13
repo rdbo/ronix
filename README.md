@@ -9,7 +9,9 @@ Read `LICENSE`
 - Bunnyhop
 - AutoStrafe (Legit/Rage)
 - Chams
+- ESP Box
 - ESP Snapline
+- Triggerbot
 - Config System
 
 ## Building

@@ -31,6 +31,7 @@ namespace Ronix {
 		bool Chams(IVModelRender *pModelRender, const DrawModelState_t &state, const ModelRenderInfo_t &pInfo, matrix3x4_t *pCustomBoneToWorld);
 		void EspSnapline(PlayerData *player);
 		void Triggerbot(CUserCmd *cmd);
+		void EspBox(PlayerData *player);
 	}
 
 	namespace Hooks {

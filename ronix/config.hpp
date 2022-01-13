@@ -71,6 +71,15 @@ struct ConfigData {
 	SDL_Scancode triggerbotHoldKey;
 	SDL_Scancode triggerbotToggleKey;
 	float triggerbotDelay;
+	bool espBoxEnable;
+	SDL_Scancode espBoxHoldKey;
+	SDL_Scancode espBoxToggleKey;
+	float espBoxThickness;
+	float espBoxTeamVisColor[4];
+	float espBoxEnemyVisColor[4];
+	float espBoxTeamInvisColor[4];
+	float espBoxEnemyInvisColor[4];
+	float espBoxOutlineColor[4];
 };
 
 class Config {
