@@ -54,6 +54,7 @@
 #include <hl2sdk/public/icliententity.h>
 #include <hl2sdk/public/icliententitylist.h>
 #include <hl2sdk/game/shared/sheetsimulator.h>
+#include <hl2sdk/game/shared/shareddefs.h>
 #include <hl2sdk/game/client/cbase.h>
 #include <hl2sdk/game/client/c_baseentity.h>
 #include <hl2sdk/game/client/c_baseplayer.h>
