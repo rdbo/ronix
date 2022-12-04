@@ -18,6 +18,7 @@ void Ronix::Hooks::CreateMove(IBaseClientDLL *thisptr, int sequence_number, floa
 	Ronix::Hacks::AutoStrafe(cmd);
 	Ronix::Hacks::Bunnyhop(cmd);
 	Ronix::Hacks::Triggerbot(cmd);
+	Ronix::Hacks::RCS(cmd);
 
 	// Normalize
 	NormalizeAngles(cmd->viewangles);

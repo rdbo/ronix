@@ -317,3 +317,31 @@ JustAfew:
     nBuffer &= 7;
     goto JustAfew;
 }
+
+RecvProp *GetNetVarProp(RecvTable *table, const char *nvname)
+{
+	for (int i = 0; i < table->m_nProps; ++i) {
+		RecvProp *prop = &table->m_pProps[i];
+		if (!strcmp(prop->m_pVarName, nvname))
+			return prop;
+
+		if (prop->GetDataTable()) {
+			prop = GetNetVarProp(prop->GetDataTable(), nvname);
+			if (prop)
+				return prop;
+		}
+	}
+
+	return nullptr;
+}
+
+RecvProp *GetNetVarProp(ClientClass *base, const char *tblname, const char *nvname)
+{
+	for (; base; base = base->m_pNext) {
+		if (!strcmp(base->m_pRecvTable->m_pNetTableName, tblname))
+			return GetNetVarProp(base->m_pRecvTable, nvname);
+	}
+
+	return nullptr;
+}
+

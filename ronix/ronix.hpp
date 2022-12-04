@@ -32,6 +32,7 @@ namespace Ronix {
 		void EspSnapline(PlayerData *player);
 		void Triggerbot(CUserCmd *cmd);
 		void EspBox(PlayerData *player);
+		void RCS(CUserCmd *cmd);
 	}
 
 	namespace Hooks {
