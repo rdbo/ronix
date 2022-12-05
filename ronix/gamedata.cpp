@@ -46,8 +46,8 @@ void GameData::Update()
 		FixPos2d(gameData->players[i].pos2d);
 		FixPos2d(gameData->players[i].headpos2d);
 		
-		player->SetupBones(gameData->players[i].boneMatrix, 256, 256, 0.0f);
-		for (int j = 0; j < 256; ++j) {
+		gameData->players[i].isBoneMatrixSet = player->SetupBones(gameData->players[i].boneMatrix, MAXSTUDIOBONES, BONE_USED_BY_HITBOX, 0.0f);
+		for (int j = 0; j < MAXSTUDIOBONES; ++j) {
 			Vector origin = Vector( 
 				gameData->players[i].boneMatrix[j][0][3],
 				gameData->players[i].boneMatrix[j][1][3],

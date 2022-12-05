@@ -24,18 +24,20 @@ struct PlayerData {
 		RELBOW = 30,
 		RHAND = 31,
 		HEAD = 49,
+		NUMBONES
 	};
 
 	bool isValid;
 	bool isVisible;
 	bool behind;
+	bool isBoneMatrixSet;
 	int team;
 	Vector pos2d;
 	Vector pos3d;
 	Vector headpos2d;
 	Vector headpos3d;
-	matrix3x4_t boneMatrix[256];
-	Vector boneMatrixPos2d[256];
+	matrix3x4_t boneMatrix[MAXSTUDIOBONES];
+	Vector boneMatrixPos2d[MAXSTUDIOBONES];
 };
 
 struct GameData {

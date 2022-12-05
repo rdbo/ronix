@@ -14,7 +14,7 @@ Make CBaseCombatCharacter m_iAmmo private again
 Make CBaseAnimation m_flModelScale, m_nMuzzleFlashParity private again
 Make C_BaseEntity m_bSimulatedEveryTick private again
 Change to FindNetVarProp
-Optimize skeleton drawing
-Find better head bone
-Fix flickering
+Fix wrong bones for specific models
 Start skeleton drawing from head
+Check visibility in multiple bones
+Fix misaligned m_Local from CBasePlayer
