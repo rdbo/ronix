@@ -3,12 +3,13 @@
 using Ronix::Data::cstrike;
 
 #define _B(b) PlayerData::BoneIndex::b
+#define DEBUG cstrike->Cvar->ConsolePrintf
 
 void Ronix::Hacks::EspSkeleton(PlayerData *player)
 {
 	auto draw_list = ImGui::GetBackgroundDrawList();
 	static const std::vector<int> boneIndices = {
-		_B(HEAD), _B(CHEST),
+		_B(NECK), _B(CHEST),
 		_B(LSHOULDER), _B(LELBOW), _B(LHAND), _B(LELBOW), _B(LSHOULDER), _B(CHEST),
 		_B(RSHOULDER), _B(RELBOW), _B(RHAND), _B(RELBOW), _B(RSHOULDER), _B(CHEST),
 		_B(CORE),

@@ -15,4 +15,6 @@ Make CBaseAnimation m_flModelScale, m_nMuzzleFlashParity private again
 Make C_BaseEntity m_bSimulatedEveryTick private again
 Change to FindNetVarProp
 Optimize skeleton drawing
-Fix bad bone position on bone matrix
+Find better head bone
+Fix flickering
+Start skeleton drawing from head
