@@ -18,3 +18,4 @@ Fix wrong bones for specific models
 Start skeleton drawing from head
 Check visibility in multiple bones
 Fix misaligned m_Local from CBasePlayer
+Render stuff before menus, crosshair, etc

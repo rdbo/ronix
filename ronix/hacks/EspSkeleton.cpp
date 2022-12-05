@@ -10,6 +10,14 @@ void Ronix::Hacks::EspSkeleton(PlayerData *player)
 		return;
 
 	auto draw_list = ImGui::GetBackgroundDrawList();
+
+	ImVec2 headDotPoint = ImVec2(
+		player->boneMatrixPos2d[_B(NECK)].x,
+		player->boneMatrixPos2d[_B(NECK)].y
+	);
+	float headDotRadius = 2.0f / (player->headpos3d.DistTo(cstrike->LocalPlayer->m_vecOrigin) / 512.0f);
+	draw_list->AddCircleFilled(headDotPoint, headDotRadius, ImColor(255.0f, 0.0f, 0.0f, 255.0f));
+
 	static const std::vector<std::vector<int>> boneDrawList = {
 		{ _B(NECK), _B(CHEST) },
 		{ _B(CHEST), _B(LSHOULDER), _B(LELBOW), _B(LHAND) },
@@ -18,7 +26,6 @@ void Ronix::Hacks::EspSkeleton(PlayerData *player)
 		{ _B(CORE), _B(LPELVIS), _B(LKNEE), _B(LANKLE), _B(LFOOT) },
 		{ _B(CORE), _B(RPELVIS), _B(RKNEE), _B(RANKLE), _B(RFOOT) }
 	};
-
 
 	ImVec2 points[2];
 	for (size_t i = 0; i < boneDrawList.size(); ++i) {
