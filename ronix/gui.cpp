@@ -145,12 +145,12 @@ void Gui::ToggleVisibility()
 	this->SetVisiblity(!this->IsVisible());
 }
 
-SDL_Scancode *Gui::GetKeyListen()
+Keybind *Gui::GetKeyListen()
 {
 	return this->keyListen;
 }
 
-void Gui::SetKeyListen(SDL_Scancode *key)
+void Gui::SetKeyListen(Keybind *key)
 {
 	this->keyListen = key;
 }

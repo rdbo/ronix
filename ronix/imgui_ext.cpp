@@ -2,7 +2,7 @@
 
 using namespace Ronix::Data;
 
-void ImGui::Hotkey(const char *label, SDL_Scancode *key)
+void ImGui::Hotkey(const char *label, Keybind *keybind)
 {
 	ImGui::PushID(label);
 	std::string label_text = std::string(label);
@@ -13,18 +13,20 @@ void ImGui::Hotkey(const char *label, SDL_Scancode *key)
 	ImGui::SameLine();
 
 	std::stringstream ss;
-	if (gui->GetKeyListen() == key)
+	if (gui->GetKeyListen() == keybind) {
 		ss << "...";
-	else if (*key == SDL_SCANCODE_UNKNOWN)
+	} else if (keybind->key == SDL_SCANCODE_UNKNOWN) {
 		ss << "None";
-	else
-		ss << static_cast<int>(*key);
+	} else {
+		ss << (keybind->type == Keybind::KEYBOARD ? "K" : "M");
+		ss << static_cast<int>(keybind->key);
+	}
 	
 	if (ImGui::Button(ss.str().c_str()))
-		gui->SetKeyListen(key);
+		gui->SetKeyListen(keybind);
 	ImGui::SameLine();
 	if (ImGui::Button("X")) {
-		*key = SDL_SCANCODE_UNKNOWN;
+		keybind->key = SDL_SCANCODE_UNKNOWN;
 		gui->SetKeyListen(nullptr);
 	}
 

@@ -8,3 +8,5 @@ Fix triggerbot traceray
 Add triggerbot delay
 Add mouse key support
 Organize config + variables
+Make a better input system
+Fix VMTHook crash on CreateMove

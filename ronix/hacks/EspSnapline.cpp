@@ -4,7 +4,7 @@ using namespace Ronix::Data;
 
 void Ronix::Hacks::EspSnapline(PlayerData *player)
 {
-	if (!config->data.espSnaplineEnable || (config->data.espSnaplineHoldKey != SDL_SCANCODE_UNKNOWN && keys[config->data.espSnaplineHoldKey] != SDL_KEYDOWN) || player->behind || player->team <= TEAM_SPECTATOR || gameData->localPlayerTeam <= TEAM_SPECTATOR)
+	if (!config->data.espSnaplineEnable || (!config->data.espSnaplineHoldKey.IsPressed() && config->data.espSnaplineHoldKey.IsSet()) || player->behind || player->team <= TEAM_SPECTATOR || gameData->localPlayerTeam <= TEAM_SPECTATOR)
 		return;
 
 	auto draw_list = ImGui::GetBackgroundDrawList();

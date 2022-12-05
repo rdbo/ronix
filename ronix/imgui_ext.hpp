@@ -4,7 +4,7 @@
 #include <ronix.hpp>
 
 namespace ImGui {
-	void Hotkey(const char *label, SDL_Scancode *key);
+	void Hotkey(const char *label, Keybind *key);
 }
 
 #endif

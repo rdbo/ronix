@@ -5,6 +5,17 @@
 
 #define CHAMS_COUNT 5
 
+struct Keybind {
+	enum {
+		KEYBOARD = 0,
+		MOUSE
+	} type;
+
+	int key;
+	bool IsSet();
+	bool IsPressed();
+};
+
 struct ConfigData {
 	enum ChamsType : int {
 		CHAMS_TYPE_ENEMIES = 0,
@@ -45,21 +56,21 @@ struct ConfigData {
 		ESP_SNAPLINE_TYPE_INVAL
 	};
 
-	const SDL_Scancode guiKey = SDL_SCANCODE_INSERT;
-	const SDL_Scancode panicToggleKey = SDL_SCANCODE_END;
+	const Keybind guiKey = { Keybind::KEYBOARD, SDL_SCANCODE_INSERT };
+	const Keybind panicToggleKey = { Keybind::KEYBOARD, SDL_SCANCODE_END };
 	bool bunnyhopEnable;
 	bool autoStrafeEnable;
 	bool autoStrafeSilent;
 	bool autoStrafeRage;
-	SDL_Scancode autoStrafeHoldKey;
-	SDL_Scancode autoStrafeToggleKey;
+	Keybind autoStrafeHoldKey;
+	Keybind autoStrafeToggleKey;
 	bool chamsEnable;
-	SDL_Scancode chamsHoldKey;
-	SDL_Scancode chamsToggleKey;
+	Keybind chamsHoldKey;
+	Keybind chamsToggleKey;
 	ChamsData chamsData[CHAMS_TYPE_INVAL][CHAMS_COUNT];
 	bool espSnaplineEnable;
-	SDL_Scancode espSnaplineHoldKey;
-	SDL_Scancode espSnaplineToggleKey;
+	Keybind espSnaplineHoldKey;
+	Keybind espSnaplineToggleKey;
 	EspSnaplinePos espSnaplinePos;
 	EspSnaplineType espSnaplineType;
 	float espSnaplineThickness;
@@ -69,12 +80,12 @@ struct ConfigData {
 	float espSnaplineEnemyInvisColor[4];
 	float espSnaplineOutlineColor[4];
 	bool triggerbotEnable;
-	SDL_Scancode triggerbotHoldKey;
-	SDL_Scancode triggerbotToggleKey;
+	Keybind triggerbotHoldKey;
+	Keybind triggerbotToggleKey;
 	float triggerbotDelay;
 	bool espBoxEnable;
-	SDL_Scancode espBoxHoldKey;
-	SDL_Scancode espBoxToggleKey;
+	Keybind espBoxHoldKey;
+	Keybind espBoxToggleKey;
 	float espBoxThickness;
 	float espBoxTeamVisColor[4];
 	float espBoxEnemyVisColor[4];

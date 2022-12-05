@@ -4,7 +4,11 @@ using namespace Ronix::Data;
 
 void Ronix::Hacks::AutoStrafe(CUserCmd *cmd)
 {
-	if (!config->data.autoStrafeEnable || (config->data.autoStrafeHoldKey != SDL_SCANCODE_UNKNOWN && keys[config->data.autoStrafeHoldKey] != SDL_KEYDOWN) || (config->data.autoStrafeHoldKey == SDL_SCANCODE_UNKNOWN && !(cmd->buttons & IN_JUMP)))
+	cstrike->Cvar->ConsolePrintf("[RONIX] AS Key Type: %d\n", config->data.autoStrafeHoldKey.type);
+	cstrike->Cvar->ConsolePrintf("[RONIX] AS Key: %d\n", config->data.autoStrafeHoldKey.key);
+	cstrike->Cvar->ConsolePrintf("[RONIX] AS Is Set: %d\n", (int)config->data.autoStrafeHoldKey.IsSet());
+	cstrike->Cvar->ConsolePrintf("[RONIX] AS Is Pressed: %d\n", (int)config->data.autoStrafeHoldKey.IsPressed());
+	if (!config->data.autoStrafeEnable || (!config->data.autoStrafeHoldKey.IsPressed() && config->data.autoStrafeHoldKey.IsSet()) || !(cmd->buttons & IN_JUMP))
 		return;
 
 	static ConVar *cl_sidespeed = cstrike->Cvar->FindVar("cl_sidespeed");

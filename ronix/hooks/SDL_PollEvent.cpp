@@ -2,9 +2,9 @@
 
 using namespace Ronix::Data;
 
-static void HandleToggle(SDL_Event *event, SDL_Scancode key, bool &var)
+static void HandleToggle(SDL_Event *event, Keybind *key, bool &var)
 {
-	if (SDL_GetScancodeFromKey(event->key.keysym.sym) == key)
+	if ((event->type == SDL_MOUSEBUTTONDOWN && key->type == Keybind::MOUSE && event->button.button == key->key) || (event->type == SDL_KEYDOWN && key->type == Keybind::KEYBOARD && SDL_GetScancodeFromKey(event->key.keysym.sym) == key->key))
 		var = !var;
 }
 
@@ -15,9 +15,9 @@ static int SDLCALL CustomPollEvent(SDL_Event *event)
 		if (event->type == SDL_KEYDOWN) {
 			static bool panicState = false;
 			auto key = SDL_GetScancodeFromKey(event->key.keysym.sym);
-			if (key == config->data.guiKey && !panicState) {
+			if (key == config->data.guiKey.key && !panicState) {
 				gui->ToggleVisibility();
-			} else if (key == config->data.panicToggleKey) {
+			} else if (key == config->data.panicToggleKey.key) {
 				if (!panicState) {
 					config->Save(".autosave");
 					config->Reset();
@@ -33,8 +33,17 @@ static int SDLCALL CustomPollEvent(SDL_Event *event)
 		}
 		
 		if (gui->IsVisible()) {
-			if (event->type == SDL_KEYDOWN && gui->GetKeyListen()) {
-				*gui->GetKeyListen() = SDL_GetScancodeFromKey(event->key.keysym.sym);
+			Keybind *keybind = gui->GetKeyListen();
+			if (event->type == SDL_KEYDOWN && keybind) {
+				SDL_Scancode scancode = SDL_GetScancodeFromKey(event->key.keysym.sym);
+				if (scancode != SDL_SCANCODE_ESCAPE) {
+					keybind->type = Keybind::KEYBOARD;
+					keybind->key = scancode;
+				}
+				gui->SetKeyListen(nullptr);
+			} else if (event->type == SDL_MOUSEBUTTONDOWN && keybind) {
+				keybind->type = Keybind::MOUSE;
+				keybind->key = event->button.button;
 				gui->SetKeyListen(nullptr);
 			}
 			ImGui_ImplSDL2_ProcessEvent(event);
@@ -42,14 +51,26 @@ static int SDLCALL CustomPollEvent(SDL_Event *event)
 			gui->SetKeyListen(nullptr);
 		}
 
-		if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP) {
-			keys[SDL_GetScancodeFromKey(event->key.keysym.sym)] = event->type;
-			if (event->type == SDL_KEYDOWN && !gui->IsVisible()) {
-				HandleToggle(event, config->data.autoStrafeToggleKey, config->data.autoStrafeEnable);
-				HandleToggle(event, config->data.chamsToggleKey, config->data.chamsEnable);
-				HandleToggle(event, config->data.espSnaplineToggleKey, config->data.espSnaplineEnable);
-				HandleToggle(event, config->data.triggerbotToggleKey, config->data.triggerbotEnable);
-				HandleToggle(event, config->data.espBoxToggleKey, config->data.espBoxEnable);
+		if (event->type == SDL_KEYDOWN || event->type == SDL_KEYUP || event->type == SDL_MOUSEBUTTONDOWN || event->type == SDL_MOUSEBUTTONUP) {
+			Uint32 evtype = event->type;
+			Uint32 keyindex;
+			if (evtype == SDL_MOUSEBUTTONDOWN || evtype == SDL_MOUSEBUTTONUP) {
+				if (evtype == SDL_MOUSEBUTTONDOWN)
+					evtype = SDL_KEYDOWN;
+				else
+					evtype = SDL_KEYUP;
+
+				keyindex = event->button.button + KEYS_MOUSE_INDEX;
+			} else {
+				keyindex = SDL_GetScancodeFromKey(event->key.keysym.sym);
+			}
+			keys[keyindex] = evtype;
+			if (evtype == SDL_KEYDOWN && !gui->IsVisible()) {
+				HandleToggle(event, &config->data.autoStrafeToggleKey, config->data.autoStrafeEnable);
+				HandleToggle(event, &config->data.chamsToggleKey, config->data.chamsEnable);
+				HandleToggle(event, &config->data.espSnaplineToggleKey, config->data.espSnaplineEnable);
+				HandleToggle(event, &config->data.triggerbotToggleKey, config->data.triggerbotEnable);
+				HandleToggle(event, &config->data.espBoxToggleKey, config->data.espBoxEnable);
 			}
 		}
 	}

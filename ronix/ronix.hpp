@@ -9,6 +9,10 @@
 #include "gui.hpp"
 #include "gamedata.hpp"
 
+#define SDL_NUM_MOUSEBUTTONS 5
+#define KEYS_MOUSE_INDEX SDL_NUM_SCANCODES
+#define KEYS_LENGTH (SDL_NUM_SCANCODES + SDL_NUM_MOUSEBUTTONS)
+
 namespace Ronix {
 	void Init();
 	void Shutdown();
@@ -20,7 +24,7 @@ namespace Ronix {
 		extern std::unique_ptr<Gui> gui;
 		extern std::unique_ptr<cstrike_t> cstrike;
 		extern std::unique_ptr<GameData> gameData;
-		extern Uint32 keys[SDL_NUM_SCANCODES];
+		extern Uint32 keys[KEYS_LENGTH];
 		extern std::unique_ptr<VmtMgr> BaseClientDllVmt;
 		extern std::unique_ptr<VmtMgr> ModelRenderVmt;
 	}

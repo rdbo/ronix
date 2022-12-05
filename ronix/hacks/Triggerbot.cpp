@@ -27,7 +27,7 @@ void Ronix::Hacks::Triggerbot(CUserCmd *cmd)
 		return;
 	}
 
-	if (!config->data.triggerbotEnable || (config->data.triggerbotHoldKey != SDL_SCANCODE_UNKNOWN && keys[config->data.triggerbotHoldKey] != SDL_KEYDOWN) || !cstrike->LocalPlayer->IsAlive() || !cstrike->LocalPlayer->GetHealth() > 0 || cstrike->LocalPlayer->GetTeamNumber() <= TEAM_SPECTATOR)
+	if (!config->data.triggerbotEnable || (!config->data.triggerbotHoldKey.IsPressed() && config->data.triggerbotHoldKey.IsSet()) || !cstrike->LocalPlayer->IsAlive() || !cstrike->LocalPlayer->GetHealth() > 0 || cstrike->LocalPlayer->GetTeamNumber() <= TEAM_SPECTATOR)
 		return;
 	
 	Ray_t ray;

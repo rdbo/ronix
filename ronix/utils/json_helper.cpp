@@ -21,9 +21,10 @@ void json_write(nlohmann::json &json_obj, std::string varname, float value[], si
 		json_obj[varname][i] = value[i];
 }
 
-void json_write(nlohmann::json &json_obj, std::string varname, SDL_Scancode value)
+void json_write(nlohmann::json &json_obj, std::string varname, Keybind value)
 {
-	json_write(json_obj, varname, static_cast<int>(value));
+	json_write(json_obj[varname], "type", static_cast<int>(value.type));
+	json_write(json_obj[varname], "key", static_cast<int>(value.key));
 }
 
 void json_write(nlohmann::json &json_obj, std::string varname, ConfigData::ChamsMat value)
@@ -82,9 +83,10 @@ void json_read(nlohmann::json &json_obj, std::string varname, float var[], size_
 		var[i] = json_obj[varname][i];
 }
 
-void json_read(nlohmann::json &json_obj, std::string varname, SDL_Scancode &var)
+void json_read(nlohmann::json &json_obj, std::string varname, Keybind &var)
 {
-	json_read(json_obj, varname, reinterpret_cast<int &>(var));
+	json_read(json_obj[varname], "type", reinterpret_cast<int &>(var.type));
+	json_read(json_obj[varname], "key", reinterpret_cast<int &>(var.key));
 }
 
 void json_read(nlohmann::json &json_obj, std::string varname, ConfigData::ChamsMat &var)

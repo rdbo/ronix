@@ -2,6 +2,22 @@
 #include <ronix.hpp>
 #include "utils/json_helper.hpp"
 
+bool Keybind::IsSet()
+{
+	return this->key != SDL_SCANCODE_UNKNOWN;
+}
+
+bool Keybind::IsPressed()
+{
+	if (!this->IsSet())
+		return false;
+
+	int index = this->key;
+	if (this->type == MOUSE)
+		index += KEYS_MOUSE_INDEX;
+	return Ronix::Data::keys[index] == SDL_KEYDOWN;
+}
+
 Config::Config(std::string path)
 {
 	this->path = path;
@@ -20,17 +36,17 @@ std::string Config::MakePath(std::string name)
 
 void Config::Reset()
 {
+	Keybind empty_kb = { Keybind::KEYBOARD, SDL_SCANCODE_UNKNOWN };
 	this->data.bunnyhopEnable = false;
-
 	this->data.autoStrafeEnable = false;
 	this->data.autoStrafeSilent = false;
 	this->data.autoStrafeRage = false;
-	this->data.autoStrafeHoldKey = SDL_SCANCODE_UNKNOWN;
-	this->data.autoStrafeToggleKey = SDL_SCANCODE_UNKNOWN;
+	this->data.autoStrafeHoldKey = empty_kb;
+	this->data.autoStrafeToggleKey = empty_kb;
 
 	this->data.chamsEnable = false;
-	this->data.chamsHoldKey = SDL_SCANCODE_UNKNOWN;
-	this->data.chamsToggleKey = SDL_SCANCODE_UNKNOWN;
+	this->data.chamsHoldKey = empty_kb;
+	this->data.chamsToggleKey = empty_kb;
 	for (size_t i = 0; i < ConfigData::CHAMS_TYPE_INVAL; ++i) {
 		auto chamsData = &this->data.chamsData[i];
 		for (size_t j = 0; j < CHAMS_COUNT; ++j) {
@@ -45,8 +61,8 @@ void Config::Reset()
 	}
 
 	this->data.espSnaplineEnable = false;
-	this->data.espSnaplineHoldKey = SDL_SCANCODE_UNKNOWN;
-	this->data.espSnaplineToggleKey = SDL_SCANCODE_UNKNOWN;
+	this->data.espSnaplineHoldKey = empty_kb;
+	this->data.espSnaplineToggleKey = empty_kb;
 	this->data.espSnaplinePos = ConfigData::ESP_SNAPLINE_POS_BOTTOM;
 	this->data.espSnaplineType = ConfigData::ESP_SNAPLINE_TYPE_FOOT;
 	this->data.espSnaplineThickness = 2.0f;
@@ -63,13 +79,13 @@ void Config::Reset()
 	this->data.espSnaplineOutlineColor[3] = 1.0f;
 
 	this->data.triggerbotEnable = false;
-	this->data.triggerbotHoldKey = SDL_SCANCODE_UNKNOWN;
-	this->data.triggerbotToggleKey = SDL_SCANCODE_UNKNOWN;
+	this->data.triggerbotHoldKey = empty_kb;
+	this->data.triggerbotToggleKey = empty_kb;
 	this->data.triggerbotDelay = 0.0f;
 	
 	this->data.espBoxEnable = false;
-	this->data.espBoxHoldKey = SDL_SCANCODE_UNKNOWN;
-	this->data.espBoxToggleKey = SDL_SCANCODE_UNKNOWN;
+	this->data.espBoxHoldKey = empty_kb;
+	this->data.espBoxToggleKey = empty_kb;
 	this->data.espBoxThickness = 2.0f;
 	for (size_t i = 0; i < RONIX_ARRLEN(this->data.espBoxTeamVisColor); ++i)
 		this->data.espBoxTeamVisColor[i] = 1.0f;

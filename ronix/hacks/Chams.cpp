@@ -42,7 +42,7 @@ bool Ronix::Hacks::Chams(IVModelRender *pModelRender, const DrawModelState_t &st
 {
 	static DrawModelExecuteFn fnDrawModelExecute = Ronix::Data::ModelRenderVmt->GetOriginal<DrawModelExecuteFn>(19);
 
-	if (!config->data.chamsEnable || (config->data.chamsHoldKey != SDL_SCANCODE_UNKNOWN && keys[config->data.chamsHoldKey] != SDL_KEYDOWN) || !cstrike->LocalPlayer || !cstrike->EngineClient->IsInGame())
+	if (!config->data.chamsEnable || (!config->data.chamsHoldKey.IsPressed() && config->data.chamsHoldKey.IsSet()) || !cstrike->LocalPlayer || !cstrike->EngineClient->IsInGame())
 		return false;
 	
 	const char *model_name = cstrike->ModelInfoClient->GetModelName(pInfo.pModel);
