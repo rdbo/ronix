@@ -37,6 +37,7 @@ namespace Ronix {
 		void Triggerbot(CUserCmd *cmd);
 		void EspBox(PlayerData *player);
 		void RCS(CUserCmd *cmd);
+		void EspSkeleton(PlayerData *player);
 	}
 
 	namespace Hooks {

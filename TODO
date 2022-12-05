@@ -10,3 +10,9 @@ Add mouse key support
 Organize config + variables
 Make a better input system
 Fix VMTHook crash on CreateMove
+Make CBaseCombatCharacter m_iAmmo private again
+Make CBaseAnimation m_flModelScale, m_nMuzzleFlashParity private again
+Make C_BaseEntity m_bSimulatedEveryTick private again
+Change to FindNetVarProp
+Optimize skeleton drawing
+Fix bad bone position on bone matrix

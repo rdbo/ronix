@@ -44,6 +44,7 @@ void SDLCALL Ronix::Hooks::SDL_GL_SwapWindow(SDL_Window *window)
 				continue;
 			Ronix::Hacks::EspSnapline(player);
 			Ronix::Hacks::EspBox(player);
+			Ronix::Hacks::EspSkeleton(player);
 		}
 	}
 

@@ -537,7 +537,8 @@ protected:
 	float							m_fadeMaxDist;
 	float							m_flFadeScale;
 
-private:
+// private:
+public:
 
 	float							m_flGroundSpeed;	// computed linear movement rate for current sequence
 	float							m_flLastEventCheck;	// cycle index of when events were last checked
@@ -593,7 +594,8 @@ protected:
 	float							m_flOldCycle;
 	bool							m_bNoModelParticles;
 
-private:
+// private:
+public:
 	float							m_flOldModelScale;
 	int								m_nOldSequence;
 	CBoneMergeCache					*m_pBoneMergeCache;	// This caches the strcmp lookups that it has to do

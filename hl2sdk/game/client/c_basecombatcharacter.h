@@ -116,7 +116,8 @@ protected:
 
 	int			m_bloodColor;			// color of blood particless
 
-private:
+// private:
+public:
 	bool				ComputeLOS( const Vector &vecEyePosition, const Vector &vecTarget ) const;
 
 	CNetworkArray( int, m_iAmmo, MAX_AMMO_TYPES );

@@ -3,6 +3,15 @@
 
 using namespace Ronix::Data;
 
+void FixPos2d(Vector &vec)
+{
+	vec.x *= gameData->screenRes[0] / 2.0f;
+	vec.x += gameData->screenRes[0] / 2.0f;
+	vec.y *= -1.0f;
+	vec.y *= gameData->screenRes[1] / 2.0f;
+	vec.y += gameData->screenRes[1] / 2.0f;
+}
+
 void GameData::Update()
 {
 	gameData->localPlayerTeam = cstrike->LocalPlayer->GetTeamNumber();
@@ -33,16 +42,19 @@ void GameData::Update()
 		gameData->players[i].headpos3d = player->EyePosition();
 		gameData->players[i].behind = FrustumTransform(cstrike->EngineClient->WorldToScreenMatrix(), gameData->players[i].pos3d, gameData->players[i].pos2d);
 		FrustumTransform(cstrike->EngineClient->WorldToScreenMatrix(), gameData->players[i].headpos3d, gameData->players[i].headpos2d);
-		gameData->players[i].pos2d.x *= gameData->screenRes[0] / 2.0f;
-		gameData->players[i].pos2d.x += gameData->screenRes[0] / 2.0f;
-		gameData->players[i].pos2d.y *= -1.0f;
-		gameData->players[i].pos2d.y *= gameData->screenRes[1] / 2.0f;
-		gameData->players[i].pos2d.y += gameData->screenRes[1] / 2.0f;
+	
+		FixPos2d(gameData->players[i].pos2d);
+		FixPos2d(gameData->players[i].headpos2d);
 		
-		gameData->players[i].headpos2d.x *= gameData->screenRes[0] / 2.0f;
-		gameData->players[i].headpos2d.x += gameData->screenRes[0] / 2.0f;
-		gameData->players[i].headpos2d.y *= -1.0f;
-		gameData->players[i].headpos2d.y *= gameData->screenRes[1] / 2.0f;
-		gameData->players[i].headpos2d.y += gameData->screenRes[1] / 2.0f;
+		player->SetupBones(gameData->players[i].boneMatrix, 256, 256, 0.0f);
+		for (int j = 0; j < 256; ++j) {
+			Vector origin = Vector( 
+				gameData->players[i].boneMatrix[j][0][3],
+				gameData->players[i].boneMatrix[j][1][3],
+				gameData->players[i].boneMatrix[j][2][3]
+			);
+			FrustumTransform(cstrike->EngineClient->WorldToScreenMatrix(), origin, gameData->players[i].boneMatrixPos2d[j]);
+			FixPos2d(gameData->players[i].boneMatrixPos2d[j]);
+		}
 	}
 }
