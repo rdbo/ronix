@@ -108,6 +108,17 @@ void Gui::Render()
 
 	ImGui::Separator();
 
+	ImGui::Checkbox("ESP Skeleton", &data->espSkelEnable);
+	ImGui::Hotkey("Toggle Key##ESP Skeleton", &data->espSkelToggleKey);
+	ImGui::Hotkey("Hold Key##ESP Skeleton", &data->espSkelHoldKey);
+	ImGui::SliderFloat("Thickness##ESP Skeleton", &data->espSkelThickness, 0.0f, 10.0f, "%.0f", 1.0f);
+	ImGui::ColorEdit4("Color Enemy Visible##ESP Skeleton", data->espSkelEnemyVisColor);
+	ImGui::ColorEdit4("Color Enemy Invisible##ESP Skeleton", data->espSkelEnemyInvisColor);
+	ImGui::ColorEdit4("Color Team Visible##ESP Skeleton", data->espSkelTeamVisColor);
+	ImGui::ColorEdit4("Color Team Invisible##ESP Skeleton", data->espSkelTeamInvisColor);
+
+	ImGui::Separator();
+
 	static char config_name[64] = { 0 };
 	ImGui::InputText("Config Name", config_name, sizeof(config_name), ImGuiInputTextFlags_CallbackCharFilter, InputFilterCallback);
 	if (ImGui::Button("Load Config"))

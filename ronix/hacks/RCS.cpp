@@ -45,7 +45,6 @@ void Ronix::Hacks::RCS(CUserCmd *cmd)
 		return;
 
 	int shotsFired = *(int *)(&((char *)cstrike->LocalPlayer)[shots_fired_offset]);
-	cstrike->Cvar->ConsolePrintf("[RONIX] Shots Fired: %d\n", shotsFired);
 
 	if (!config->data.rcsEnable || !(cmd->buttons & IN_ATTACK) || shotsFired <= 1 || (!config->data.rcsHoldKey.IsPressed() && config->data.rcsHoldKey.IsSet())) {
 		old_punch = QAngle(0.0f, 0.0f, 0.0f);

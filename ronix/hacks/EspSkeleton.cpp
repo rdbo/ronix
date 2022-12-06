@@ -1,22 +1,36 @@
 #include <ronix.hpp>
 
-using Ronix::Data::cstrike;
+using namespace Ronix::Data;
 
 #define _B(b) PlayerData::BoneIndex::b
 
 void Ronix::Hacks::EspSkeleton(PlayerData *player)
 {
-	if (!player->isBoneMatrixSet)
+	if (!config->data.espSkelEnable || (!config->data.espSkelHoldKey.IsPressed() && config->data.espSkelHoldKey.IsSet()) || !player->isBoneMatrixSet)
 		return;
 
 	auto draw_list = ImGui::GetBackgroundDrawList();
+	float *drawColorBuf;
+	if (player->team == gameData->localPlayerTeam) {
+		if (player->isVisible)
+			drawColorBuf = config->data.espSkelTeamVisColor;
+		else
+			drawColorBuf = config->data.espSkelTeamInvisColor;
+	} else {
+		if (player->isVisible)
+			drawColorBuf = config->data.espSkelEnemyVisColor;
+		else
+			drawColorBuf = config->data.espSkelEnemyInvisColor;
+	}
+
+	ImColor drawColor = ImColor(drawColorBuf[0], drawColorBuf[1], drawColorBuf[2], drawColorBuf[3]);
 
 	ImVec2 headDotPoint = ImVec2(
 		player->boneMatrixPos2d[_B(NECK)].x,
 		player->boneMatrixPos2d[_B(NECK)].y
 	);
-	float headDotRadius = 2.0f / (player->headpos3d.DistTo(cstrike->LocalPlayer->m_vecOrigin) / 512.0f);
-	draw_list->AddCircleFilled(headDotPoint, headDotRadius, ImColor(255.0f, 0.0f, 0.0f, 255.0f));
+	float headDotRadius = (1.0f * config->data.espSkelThickness) / (player->headpos3d.DistTo(cstrike->LocalPlayer->m_vecOrigin) / 512.0f);
+	draw_list->AddCircleFilled(headDotPoint, headDotRadius, drawColor);
 
 	static const std::vector<std::vector<int>> boneDrawList = {
 		{ _B(NECK), _B(CHEST) },
@@ -35,7 +49,7 @@ void Ronix::Hacks::EspSkeleton(PlayerData *player)
 				points[k] = ImVec2(bonePos.x, bonePos.y);
 			}
 
-			draw_list->AddLine(points[0], points[1], ImColor(255.0f, 0.0f, 0.0f, 255.0f));
+			draw_list->AddLine(points[0], points[1], drawColor, config->data.espSkelThickness);
 		}
 	}
 }

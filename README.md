@@ -6,11 +6,13 @@ Made by rdbo
 Read `LICENSE`
 
 ## Features
-- Bunnyhop
 - AutoStrafe (Legit/Rage)
+- Bunnyhop
 - Chams
 - ESP Box
+- ESP Skeleton
 - ESP Snapline
+- Recoil Control System
 - Triggerbot
 - Config System
 

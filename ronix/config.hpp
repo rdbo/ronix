@@ -95,6 +95,14 @@ struct ConfigData {
 	bool rcsEnable;
 	Keybind rcsHoldKey;
 	Keybind rcsToggleKey;
+	bool espSkelEnable;
+	Keybind espSkelHoldKey;
+	Keybind espSkelToggleKey;
+	float espSkelThickness;
+	float espSkelTeamVisColor[4];
+	float espSkelEnemyVisColor[4];
+	float espSkelTeamInvisColor[4];
+	float espSkelEnemyInvisColor[4];
 };
 
 class Config {
