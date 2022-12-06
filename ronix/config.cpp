@@ -37,7 +37,7 @@ std::string Config::MakePath(std::string name)
 static void ZeroArray(float (&arr)[], size_t size)
 {
 	for (size_t i = 0; i < size; ++i)
-		arr[0] = 0.0f;
+		arr[i] = 0.0f;
 }
 
 #define _ZeroArray(arr) ZeroArray(arr, RONIX_ARRLEN(arr))
