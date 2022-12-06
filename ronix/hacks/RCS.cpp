@@ -1,18 +1,19 @@
 #include <ronix.hpp>
 
-using Ronix::Data::cstrike;
+using namespace Ronix::Data;
 
-#define DEBUG cstrike->Cvar->ConsolePrintf
-#define OFFSET(ptr, offset) (&((char *)ptr)[offset])
+// #define DEBUG cstrike->Cvar->ConsolePrintf
+// #define OFFSET(ptr, offset) (&((char *)ptr)[offset])
 
-static QAngle old_punch = QAngle(0, 0, 0);
-uintptr_t GetVecPunchOffset()
+static QAngle old_punch = QAngle(0.0f, 0.0f, 0.0f);
+
+static uintptr_t GetVecPunchOffset()
 {
 	static ClientClass *base_class = cstrike->BaseClientDll->GetAllClasses();
 	static RecvProp *m_Local = GetNetVarProp(base_class, "DT_BasePlayer", "m_Local");
 	static RecvProp *m_vecPunchAngle = GetNetVarProp(base_class, "DT_BasePlayer", "m_vecPunchAngle");
 	if (!m_Local) {
-		RONIX_LOG("Unable to find m_Local prop");
+		RONIX_LOG("Unable to find m_Local prop\n");
 		return 0;
 	}
 
@@ -24,14 +25,37 @@ uintptr_t GetVecPunchOffset()
 	return (uintptr_t)(m_Local->GetOffset() + m_vecPunchAngle->GetOffset());
 }
 
+static uintptr_t GetShotsFiredOffset()
+{
+	static ClientClass *base_class = cstrike->BaseClientDll->GetAllClasses();
+	static RecvProp *m_iShotsFired = GetNetVarProp(base_class, "DT_CSPlayer", "m_iShotsFired");
+	if (!m_iShotsFired) {
+		RONIX_LOG("Unable to find m_iShotsFired prop\n");
+		return 0;
+	}
+
+	return (uintptr_t)m_iShotsFired->GetOffset();
+}
+
 void Ronix::Hacks::RCS(CUserCmd *cmd)
 {
 	static uintptr_t punch_offset = GetVecPunchOffset();
-	if (!punch_offset)
+	static uintptr_t shots_fired_offset = GetShotsFiredOffset();
+	if (!punch_offset || !shots_fired_offset)
 		return;
+
+	int shotsFired = *(int *)(&((char *)cstrike->LocalPlayer)[shots_fired_offset]);
+	cstrike->Cvar->ConsolePrintf("[RONIX] Shots Fired: %d\n", shotsFired);
+
+	if (!config->data.rcsEnable || !(cmd->buttons & IN_ATTACK) || shotsFired <= 1 || (!config->data.rcsHoldKey.IsPressed() && config->data.rcsHoldKey.IsSet())) {
+		old_punch = QAngle(0.0f, 0.0f, 0.0f);
+		return;
+	}
+
 	QAngle *punch = (QAngle *)(&((char *)cstrike->LocalPlayer)[punch_offset]);
-	
-	// debug
+
+	// debug (searching for bad padding in CBasePlayer)
+	/*
 	static ClientClass *base_class = cstrike->BaseClientDll->GetAllClasses();
 	static RecvProp *m_iHealth = GetNetVarProp(base_class, "DT_BasePlayer", "m_iHealth");
 	static RecvProp *m_iAmmo = GetNetVarProp(base_class, "DT_BasePlayer", "m_iAmmo");
@@ -49,9 +73,13 @@ void Ronix::Hacks::RCS(CUserCmd *cmd)
 	DEBUG("[RONIX] m_nMuzzleFlashParity: %p\n", &cstrike->LocalPlayer->m_nMuzzleFlashParity);
 	DEBUG("[RONIX] Real m_bSimulatedEveryTick: %p\n", OFFSET(cstrike->LocalPlayer, m_bSimulatedEveryTick->GetOffset()));
 	DEBUG("[RONIX] m_bSimulatedEveryTick: %p\n", &cstrike->LocalPlayer->m_bSimulatedEveryTick);
+	*/
 
-	cmd->viewangles.x -= (punch->x - old_punch.x) * 2.0f;
-	cmd->viewangles.y -= (punch->y - old_punch.y) * 2.0f;
+	QAngle viewangles;
+	cstrike->EngineClient->GetViewAngles(viewangles);
+	viewangles.x -= (punch->x - old_punch.x) * 2.0f;
+	viewangles.y -= (punch->y - old_punch.y) * 2.0f;
+	NormalizeAngles(viewangles);
 	old_punch = *punch;
-	cstrike->EngineClient->SetViewAngles(cmd->viewangles);
+	cstrike->EngineClient->SetViewAngles(viewangles);
 }

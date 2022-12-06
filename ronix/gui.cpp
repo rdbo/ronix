@@ -97,9 +97,16 @@ void Gui::Render()
 	
 	static const char *mat_type_list[ConfigData::CHAMS_MAT_INVAL] = { "Flat", "Plastic", "Glass" };
 	ImGui::ListBox("Material Type##Chams", reinterpret_cast<int *>(&data->chamsData[chams_type][chams_num].mat), mat_type_list, ConfigData::CHAMS_MAT_INVAL);
-	ImGui::Separator();
 
 	ImGui::ColorEdit4("Material Color##Chams", data->chamsData[chams_type][chams_num].color);
+
+	ImGui::Separator();
+
+	ImGui::Checkbox("Enable RCS##RCS", &data->rcsEnable);
+	ImGui::Hotkey("Toggle Key##RCS", &data->rcsToggleKey);
+	ImGui::Hotkey("Hold Key##RCS", &data->rcsHoldKey);
+
+	ImGui::Separator();
 
 	static char config_name[64] = { 0 };
 	ImGui::InputText("Config Name", config_name, sizeof(config_name), ImGuiInputTextFlags_CallbackCharFilter, InputFilterCallback);

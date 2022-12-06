@@ -92,6 +92,9 @@ struct ConfigData {
 	float espBoxTeamInvisColor[4];
 	float espBoxEnemyInvisColor[4];
 	float espBoxOutlineColor[4];
+	bool rcsEnable;
+	Keybind rcsHoldKey;
+	Keybind rcsToggleKey;
 };
 
 class Config {
