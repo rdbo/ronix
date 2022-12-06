@@ -19,3 +19,4 @@ Start skeleton drawing from head
 Check visibility in multiple bones
 Fix misaligned m_Local from CBasePlayer
 Render stuff before menus, crosshair, etc
+Fix buffers initializing with crazy values

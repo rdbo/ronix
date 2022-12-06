@@ -2,9 +2,6 @@
 
 using namespace Ronix::Data;
 
-// #define DEBUG cstrike->Cvar->ConsolePrintf
-// #define OFFSET(ptr, offset) (&((char *)ptr)[offset])
-
 static QAngle old_punch = QAngle(0.0f, 0.0f, 0.0f);
 
 static uintptr_t GetVecPunchOffset()
@@ -46,39 +43,20 @@ void Ronix::Hacks::RCS(CUserCmd *cmd)
 
 	int shotsFired = *(int *)(&((char *)cstrike->LocalPlayer)[shots_fired_offset]);
 
-	if (!config->data.rcsEnable || !(cmd->buttons & IN_ATTACK) || shotsFired <= 1 || (!config->data.rcsHoldKey.IsPressed() && config->data.rcsHoldKey.IsSet())) {
-		old_punch = QAngle(0.0f, 0.0f, 0.0f);
+	if (!config->data.rcsEnable || (!config->data.rcsHoldKey.IsPressed() && config->data.rcsHoldKey.IsSet())) {
 		return;
 	}
 
-	QAngle *punch = (QAngle *)(&((char *)cstrike->LocalPlayer)[punch_offset]);
-
-	// debug (searching for bad padding in CBasePlayer)
-	/*
-	static ClientClass *base_class = cstrike->BaseClientDll->GetAllClasses();
-	static RecvProp *m_iHealth = GetNetVarProp(base_class, "DT_BasePlayer", "m_iHealth");
-	static RecvProp *m_iAmmo = GetNetVarProp(base_class, "DT_BasePlayer", "m_iAmmo");
-	static RecvProp *m_flModelScale = GetNetVarProp(base_class, "DT_BasePlayer", "m_flModelScale");
-	static RecvProp *m_nMuzzleFlashParity = GetNetVarProp(base_class, "DT_BasePlayer", "m_nMuzzleFlashParity");
-	static RecvProp *m_bSimulatedEveryTick = GetNetVarProp(base_class, "DT_BasePlayer", "m_bSimulatedEveryTick");
-
-	DEBUG("[RONIX] Real m_iHealth: %p\n", OFFSET(cstrike->LocalPlayer, m_iHealth->GetOffset()));
-	DEBUG("[RONIX] m_iHealth:      %p\n", &cstrike->LocalPlayer->m_iHealth);
-	DEBUG("[RONIX] Real m_iAmmo:   %p\n", OFFSET(cstrike->LocalPlayer, m_iAmmo->GetOffset()));
-	DEBUG("[RONIX] m_iAmmo:        %p\n", &cstrike->LocalPlayer->m_iAmmo);
-	DEBUG("[RONIX] Real m_flModelScale: %p\n", OFFSET(cstrike->LocalPlayer, m_flModelScale->GetOffset()));
-	DEBUG("[RONIX] m_flModelScale: %p\n", &cstrike->LocalPlayer->m_flModelScale);
-	DEBUG("[RONIX] Real m_nMuzzleFlashParity: %p\n", OFFSET(cstrike->LocalPlayer, m_nMuzzleFlashParity->GetOffset()));
-	DEBUG("[RONIX] m_nMuzzleFlashParity: %p\n", &cstrike->LocalPlayer->m_nMuzzleFlashParity);
-	DEBUG("[RONIX] Real m_bSimulatedEveryTick: %p\n", OFFSET(cstrike->LocalPlayer, m_bSimulatedEveryTick->GetOffset()));
-	DEBUG("[RONIX] m_bSimulatedEveryTick: %p\n", &cstrike->LocalPlayer->m_bSimulatedEveryTick);
-	*/
-
-	QAngle viewangles;
-	cstrike->EngineClient->GetViewAngles(viewangles);
-	viewangles.x -= (punch->x - old_punch.x) * 2.0f;
-	viewangles.y -= (punch->y - old_punch.y) * 2.0f;
-	NormalizeAngles(viewangles);
-	old_punch = *punch;
-	cstrike->EngineClient->SetViewAngles(viewangles);
+	if (shotsFired > 1) {
+		QAngle *punch = (QAngle *)(&((char *)cstrike->LocalPlayer)[punch_offset]);
+		QAngle viewangles;
+		cstrike->EngineClient->GetViewAngles(viewangles);
+		viewangles.x -= (punch->x - old_punch.x) * 2.0f;
+		viewangles.y -= (punch->y - old_punch.y) * 2.0f;
+		NormalizeAngles(viewangles);
+		old_punch = *punch;
+		cstrike->EngineClient->SetViewAngles(viewangles);
+	} else {
+		old_punch = QAngle(0.0f, 0.0f, 0.0f);
+	}
 }
