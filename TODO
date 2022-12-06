@@ -1,19 +1,16 @@
 Restore original memory protection for VMTs and hooks
 Destroy user context properly
-Don't rage autostrafe while shooting
 Fix chams ignore Z (doesn't work behind some boxes and some props)
 Make sure ~/.ronix is not a file
 Add bhop hold/toggle keys
 Fix triggerbot traceray
 Add triggerbot delay
-Add mouse key support
 Organize config + variables
 Make a better input system
 Fix VMTHook crash on CreateMove
 Make CBaseCombatCharacter m_iAmmo private again
 Make CBaseAnimation m_flModelScale, m_nMuzzleFlashParity private again
 Make C_BaseEntity m_bSimulatedEveryTick private again
-Change to FindNetVarProp
 Fix wrong bones for specific models
 Start skeleton drawing from head
 Check visibility in multiple bones

@@ -78,7 +78,7 @@
 
 int FrustumTransform( const VMatrix &worldToSurface, const Vector& point, Vector& screen );
 
-RecvProp *GetNetVarProp(RecvTable *table, const char *nvname);
-RecvProp *GetNetVarProp(ClientClass *base, const char *tblname, const char *nvname);
+RecvProp *FindNetVarProp(RecvTable *table, const char *nvname);
+RecvProp *FindNetVarProp(ClientClass *base, const char *tblname, const char *nvname);
 
 #endif

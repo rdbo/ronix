@@ -318,7 +318,7 @@ JustAfew:
     goto JustAfew;
 }
 
-RecvProp *GetNetVarProp(RecvTable *table, const char *nvname)
+RecvProp *FindNetVarProp(RecvTable *table, const char *nvname)
 {
 	for (int i = 0; i < table->m_nProps; ++i) {
 		RecvProp *prop = &table->m_pProps[i];
@@ -326,7 +326,7 @@ RecvProp *GetNetVarProp(RecvTable *table, const char *nvname)
 			return prop;
 
 		if (prop->GetDataTable()) {
-			prop = GetNetVarProp(prop->GetDataTable(), nvname);
+			prop = FindNetVarProp(prop->GetDataTable(), nvname);
 			if (prop)
 				return prop;
 		}
@@ -335,11 +335,11 @@ RecvProp *GetNetVarProp(RecvTable *table, const char *nvname)
 	return nullptr;
 }
 
-RecvProp *GetNetVarProp(ClientClass *base, const char *tblname, const char *nvname)
+RecvProp *FindNetVarProp(ClientClass *base, const char *tblname, const char *nvname)
 {
 	for (; base; base = base->m_pNext) {
 		if (!strcmp(base->m_pRecvTable->m_pNetTableName, tblname))
-			return GetNetVarProp(base->m_pRecvTable, nvname);
+			return FindNetVarProp(base->m_pRecvTable, nvname);
 	}
 
 	return nullptr;

@@ -7,8 +7,8 @@ static QAngle old_punch = QAngle(0.0f, 0.0f, 0.0f);
 static uintptr_t GetVecPunchOffset()
 {
 	static ClientClass *base_class = cstrike->BaseClientDll->GetAllClasses();
-	static RecvProp *m_Local = GetNetVarProp(base_class, "DT_BasePlayer", "m_Local");
-	static RecvProp *m_vecPunchAngle = GetNetVarProp(base_class, "DT_BasePlayer", "m_vecPunchAngle");
+	static RecvProp *m_Local = FindNetVarProp(base_class, "DT_BasePlayer", "m_Local");
+	static RecvProp *m_vecPunchAngle = FindNetVarProp(base_class, "DT_BasePlayer", "m_vecPunchAngle");
 	if (!m_Local) {
 		RONIX_LOG("Unable to find m_Local prop\n");
 		return 0;
@@ -25,7 +25,7 @@ static uintptr_t GetVecPunchOffset()
 static uintptr_t GetShotsFiredOffset()
 {
 	static ClientClass *base_class = cstrike->BaseClientDll->GetAllClasses();
-	static RecvProp *m_iShotsFired = GetNetVarProp(base_class, "DT_CSPlayer", "m_iShotsFired");
+	static RecvProp *m_iShotsFired = FindNetVarProp(base_class, "DT_CSPlayer", "m_iShotsFired");
 	if (!m_iShotsFired) {
 		RONIX_LOG("Unable to find m_iShotsFired prop\n");
 		return 0;
