@@ -35,7 +35,8 @@ void Ronix::Hacks::Triggerbot(CUserCmd *cmd)
 	MyTraceFilter traceFilter;
 	traceFilter.pSkip = cstrike->LocalPlayer;
 	auto eye_pos = cstrike->LocalPlayer->EyePosition();
-	auto eye_angles = cstrike->LocalPlayer->EyeAngles();
+	// auto eye_angles = cstrike->LocalPlayer->EyeAngles();
+	auto eye_angles = cmd->viewangles;
 	Vector eye_forward;
 	AngleVectors(eye_angles, &eye_forward);
 	auto eye_end = eye_pos + (eye_forward * 8192.0f);

@@ -119,6 +119,20 @@ void Gui::Render()
 
 	ImGui::Separator();
 
+	ImGui::Checkbox("Aimbot", &data->aimbotEnable);
+	ImGui::Hotkey("Toggle Key##Aimbot", &data->aimbotToggleKey);
+	ImGui::Hotkey("Hold Key##Aimbot", &data->aimbotHoldKey);
+	ImGui::SliderFloat("Smooth##Aimbot", &data->aimbotSmooth, 1.0f, 10.0f, "%.0f", 1.0f);
+	ImGui::Checkbox("Silent##Aimbot", &data->aimbotSilent);
+
+	static const char *aimbot_type_list[ConfigData::AIMBOT_NUM_TYPES] = {
+		"Crosshair Closest",
+		"Closest"
+	};
+	ImGui::ListBox("Aimbot Type##Aimbot", reinterpret_cast<int *>(&data->aimbotType), aimbot_type_list, ConfigData::AIMBOT_NUM_TYPES);
+
+	ImGui::Separator();
+
 	static char config_name[64] = { 0 };
 	ImGui::InputText("Config Name", config_name, sizeof(config_name), ImGuiInputTextFlags_CallbackCharFilter, InputFilterCallback);
 	if (ImGui::Button("Load Config"))

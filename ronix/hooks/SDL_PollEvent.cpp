@@ -73,6 +73,7 @@ static int SDLCALL CustomPollEvent(SDL_Event *event)
 				HandleToggle(event, &config->data.espBoxToggleKey, config->data.espBoxEnable);
 				HandleToggle(event, &config->data.rcsToggleKey, config->data.rcsEnable);
 				HandleToggle(event, &config->data.espSkelToggleKey, config->data.espSkelEnable);
+				HandleToggle(event, &config->data.aimbotToggleKey, config->data.aimbotEnable);
 			}
 		}
 	}

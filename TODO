@@ -18,4 +18,8 @@ Fix misaligned m_Local from CBasePlayer
 Render stuff before menus, crosshair, etc
 Fix head dot radius size for zooming
 Create function for calculating bone position from bone matrix
-Fix triggerbot and RCS with aimbot
+Fix RCS with aimbot
+Add aimbot bone
+Add more precision to aimbot smoothness GUI
+Air check for aimbot and RCS
+Add per gun type aimbot configuration

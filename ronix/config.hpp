@@ -6,7 +6,7 @@
 #define CHAMS_COUNT 5
 
 struct Keybind {
-	enum {
+	enum : int {
 		KEYBOARD = 0,
 		MOUSE
 	} type;
@@ -56,6 +56,12 @@ struct ConfigData {
 		ESP_SNAPLINE_TYPE_INVAL
 	};
 
+	enum AimbotType : int {
+		AIMBOT_CROSSHAIR_CLOSEST,
+		AIMBOT_CLOSEST,
+		AIMBOT_NUM_TYPES
+	};
+
 	const Keybind guiKey = { Keybind::KEYBOARD, SDL_SCANCODE_INSERT };
 	const Keybind panicToggleKey = { Keybind::KEYBOARD, SDL_SCANCODE_END };
 	bool bunnyhopEnable;
@@ -103,6 +109,12 @@ struct ConfigData {
 	float espSkelEnemyVisColor[4];
 	float espSkelTeamInvisColor[4];
 	float espSkelEnemyInvisColor[4];
+	bool aimbotEnable;
+	Keybind aimbotHoldKey;
+	Keybind aimbotToggleKey;
+	float aimbotSmooth;
+	bool aimbotSilent;
+	AimbotType aimbotType;
 };
 
 class Config {

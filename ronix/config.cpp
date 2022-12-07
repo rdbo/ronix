@@ -109,6 +109,13 @@ void Config::Reset()
 	_ZeroArray(this->data.espSkelEnemyVisColor);
 	_ZeroArray(this->data.espSkelTeamInvisColor);
 	_ZeroArray(this->data.espSkelEnemyInvisColor);
+
+	this->data.aimbotEnable = false;
+	this->data.aimbotHoldKey = empty_kb;
+	this->data.aimbotToggleKey = empty_kb;
+	this->data.aimbotSmooth = 1.0f;
+	this->data.aimbotSilent = false;
+	this->data.aimbotType = ConfigData::AIMBOT_CROSSHAIR_CLOSEST;
 }
 
 void Config::Save(std::string name)
@@ -172,6 +179,12 @@ void Config::Save(std::string name)
 	json_write(json_obj, "espSkelEnemyVisColor", this->data.espSkelEnemyVisColor, RONIX_ARRLEN(this->data.espSkelEnemyVisColor));
 	json_write(json_obj, "espSkelTeamInvisColor", this->data.espSkelTeamInvisColor, RONIX_ARRLEN(this->data.espSkelTeamInvisColor));
 	json_write(json_obj, "espSkelEnemyInvisColor", this->data.espSkelEnemyInvisColor, RONIX_ARRLEN(this->data.espSkelEnemyInvisColor));
+	json_write(json_obj, "aimbotEnable", this->data.aimbotEnable);
+	json_write(json_obj, "aimbotHoldKey", this->data.aimbotHoldKey);
+	json_write(json_obj, "aimbotToggleKey", this->data.aimbotToggleKey);
+	json_write(json_obj, "aimbotSmooth", this->data.aimbotSmooth);
+	json_write(json_obj, "aimbotSilent", this->data.aimbotSilent);
+	json_write(json_obj, "aimbotType", this->data.aimbotType);
 	fs << json_obj.dump();
 	fs.close();
 	RONIX_LOG("Saved config: %s\n", abspath.c_str());
@@ -243,5 +256,11 @@ void Config::Load(std::string name)
 	json_read(json_obj, "espSkelEnemyVisColor", this->data.espSkelEnemyVisColor, RONIX_ARRLEN(this->data.espSkelEnemyVisColor));
 	json_read(json_obj, "espSkelTeamInvisColor", this->data.espSkelTeamInvisColor, RONIX_ARRLEN(this->data.espSkelTeamInvisColor));
 	json_read(json_obj, "espSkelEnemyInvisColor", this->data.espSkelEnemyInvisColor, RONIX_ARRLEN(this->data.espSkelEnemyInvisColor));
+	json_read(json_obj, "aimbotEnable", this->data.aimbotEnable);
+	json_read(json_obj, "aimbotHoldKey", this->data.aimbotHoldKey);
+	json_read(json_obj, "aimbotToggleKey", this->data.aimbotToggleKey);
+	json_read(json_obj, "aimbotSmooth", this->data.aimbotSmooth);
+	json_read(json_obj, "aimbotSilent", this->data.aimbotSilent);
+	json_read(json_obj, "aimbotType", this->data.aimbotType);
 	RONIX_LOG("Loaded config: %s\n", abspath.c_str());
 }
