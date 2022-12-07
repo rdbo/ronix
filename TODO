@@ -16,3 +16,6 @@ Start skeleton drawing from head
 Check visibility in multiple bones
 Fix misaligned m_Local from CBasePlayer
 Render stuff before menus, crosshair, etc
+Fix head dot radius size for zooming
+Create function for calculating bone position from bone matrix
+Fix triggerbot and RCS with aimbot

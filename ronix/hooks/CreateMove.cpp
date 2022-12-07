@@ -17,6 +17,13 @@ void Ronix::Hooks::CreateMove(IBaseClientDLL *thisptr, int sequence_number, floa
 	// Run Hacks
 	Ronix::Hacks::AutoStrafe(cmd);
 	Ronix::Hacks::Bunnyhop(cmd);
+	for (size_t i = 0; i < gameData->players.size(); ++i) {
+		auto player = &gameData->players[i];
+		if (!player->isValid)
+			continue;
+		Ronix::Hacks::AimbotCheckPlayer(player);
+	}
+	Ronix::Hacks::Aimbot(cmd);
 	Ronix::Hacks::Triggerbot(cmd);
 	Ronix::Hacks::RCS(cmd);
 

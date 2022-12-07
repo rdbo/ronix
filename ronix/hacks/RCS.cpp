@@ -55,6 +55,7 @@ void Ronix::Hacks::RCS(CUserCmd *cmd)
 		viewangles.y -= (punch->y - old_punch.y) * 2.0f;
 		NormalizeAngles(viewangles);
 		old_punch = *punch;
+		cmd->viewangles = viewangles;
 		cstrike->EngineClient->SetViewAngles(viewangles);
 	} else {
 		old_punch = QAngle(0.0f, 0.0f, 0.0f);

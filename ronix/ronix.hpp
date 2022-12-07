@@ -38,6 +38,8 @@ namespace Ronix {
 		void EspBox(PlayerData *player);
 		void RCS(CUserCmd *cmd);
 		void EspSkeleton(PlayerData *player);
+		void AimbotCheckPlayer(PlayerData *player);
+		void Aimbot(CUserCmd *cmd);
 	}
 
 	namespace Hooks {
