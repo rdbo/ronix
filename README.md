@@ -6,6 +6,7 @@ Made by rdbo
 Read `LICENSE`
 
 ## Features
+- Aimbot
 - AutoStrafe (Legit/Rage)
 - Bunnyhop
 - Chams
