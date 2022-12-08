@@ -43,8 +43,10 @@ void Ronix::Hacks::AimbotCheckPlayer(PlayerData *player)
 
 void Ronix::Hacks::Aimbot(CUserCmd *cmd)
 {
-	if (!config->data.aimbotEnable || (!config->data.aimbotHoldKey.IsPressed() && config->data.aimbotHoldKey.IsSet()) || targetPlayer == nullptr)
+	if (!config->data.aimbotEnable || (!config->data.aimbotHoldKey.IsPressed() && config->data.aimbotHoldKey.IsSet()) || targetPlayer == nullptr) {
+		targetPlayer = nullptr;
 		return;
+	}
 
 	Vector eyePos = cstrike->LocalPlayer->EyePosition();
 	Vector bonePos = Vector(

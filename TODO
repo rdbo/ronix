@@ -23,3 +23,5 @@ Add aimbot bone
 Add more precision to aimbot smoothness GUI
 Air check for aimbot and RCS
 Add per gun type aimbot configuration
+Add aimbot FOV (max angle)
+Remove GetViewModelFOV hook because it's useless

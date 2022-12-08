@@ -18,6 +18,7 @@ struct cstrike_t {
 	ICvar *Cvar;
 	IMaterialSystem *MaterialSystem;
 	CBasePlayer *LocalPlayer;
+	IClientMode *ClientMode;
 };
 
 #endif

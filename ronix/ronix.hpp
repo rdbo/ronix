@@ -27,6 +27,7 @@ namespace Ronix {
 		extern Uint32 keys[KEYS_LENGTH];
 		extern std::unique_ptr<VmtMgr> BaseClientDllVmt;
 		extern std::unique_ptr<VmtMgr> ModelRenderVmt;
+		extern std::unique_ptr<VmtMgr> ClientModeVmt;
 	}
 
 	namespace Hacks {
@@ -48,6 +49,7 @@ namespace Ronix {
 		void CreateMove(IBaseClientDLL *thisptr, int sequence_number, float input_sample_frametime, bool active);
 		void DrawModelExecute(IVModelRender *thisptr, const DrawModelState_t &state, const ModelRenderInfo_t &pInfo, matrix3x4_t *pCustomBoneToWorld);
 		void FrameStageNotify(IBaseClientDLL *thisptr, ClientFrameStage_t curStage);
+		float GetViewModelFOV();
 	}
 }
 

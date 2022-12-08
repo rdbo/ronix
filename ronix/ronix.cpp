@@ -13,6 +13,7 @@ std::unique_ptr<GameData> Ronix::Data::gameData;
 Uint32 Ronix::Data::keys[KEYS_LENGTH] = { 0 };
 std::unique_ptr<VmtMgr> Ronix::Data::BaseClientDllVmt;
 std::unique_ptr<VmtMgr> Ronix::Data::ModelRenderVmt;
+std::unique_ptr<VmtMgr> Ronix::Data::ClientModeVmt;
 
 static uintptr_t *pSDL_GL_SwapWindow;
 static uintptr_t oSDL_GL_SwapWindow;
@@ -111,6 +112,16 @@ void Ronix::Init()
 	);
 	RONIX_LOG("GlobalVars: %p\n", reinterpret_cast<void *>(Ronix::Data::cstrike->GlobalVars));
 
+	/* Get 'g_pClientMode' from CHLModeManager::Init
+	 * (found through string "scripts/vgui_screens.txt")
+	 */
+	Ronix::Data::cstrike->ClientMode = *reinterpret_cast<IClientMode **>(
+		&(Memory::FindPattern<char *>("\x55\x89\xe5\x83\xec\x18\xe8\x00\x00\x00\x00\xa3\x00\x00\x00\x00", "xxxxxxx????x????", client.GetBase(), client.GetSize()))[12]
+	);
+	Ronix::Data::ClientModeVmt = std::unique_ptr<VmtMgr>(new VmtMgr(*reinterpret_cast<void ***>(Ronix::Data::cstrike->ClientMode)));
+
+	RONIX_LOG("ClientMode: %p\n", reinterpret_cast<void *>(Ronix::Data::cstrike->ClientMode));
+
 	RONIX_LOG("====================\n");
 
 	auto engine = Module("bin/engine.so");
@@ -172,6 +183,7 @@ void Ronix::Init()
 	Ronix::Data::BaseClientDllVmt->Hook(21, reinterpret_cast<void *>(Ronix::Hooks::CreateMove));
 	Ronix::Data::BaseClientDllVmt->Hook(35, reinterpret_cast<void *>(Ronix::Hooks::FrameStageNotify));
 	Ronix::Data::ModelRenderVmt->Hook(19, reinterpret_cast<void *>(Ronix::Hooks::DrawModelExecute));
+	Ronix::Data::ClientModeVmt->Hook(32, reinterpret_cast<void *>(Ronix::Hooks::GetViewModelFOV));
 
 	RONIX_LOG("Hooks Initialized\n");
 	RONIX_LOG("====================\n");
@@ -186,6 +198,7 @@ void Ronix::Shutdown()
 	if (Ronix::Data::hasShutdown)
 		return;
 	
+	Ronix::Data::ClientModeVmt->Restore(32);
 	Ronix::Data::ModelRenderVmt->Restore(19);
 	Ronix::Data::BaseClientDllVmt->Restore(35);
 	Ronix::Data::BaseClientDllVmt->Restore(21);
