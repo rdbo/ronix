@@ -317,8 +317,8 @@ public:
 	virtual void RequestFocus(int direction = 0);
 	virtual bool HasFocus();
 	virtual void InvalidateLayout(bool layoutNow = false, bool reloadScheme = false);
-	virtual bool RequestFocusPrev(VPANEL panel = NULL);
-	virtual bool RequestFocusNext(VPANEL panel = NULL);
+	virtual bool RequestFocusPrev(VPANEL panel);
+	virtual bool RequestFocusNext(VPANEL panel);
 	// tab positioning
 	virtual void   SetTabPosition(int position);
 	virtual int    GetTabPosition();
@@ -702,13 +702,13 @@ public:
 	Will recursively look for the next visible panel in the navigation chain, parameters are for internal use.
 	It will stop looking if first == nextpanel (to prevent infinite looping).
 	*/
-	Panel* GetNavUp( Panel *first = NULL ); 
-	Panel* GetNavDown( Panel *first = NULL );
-	Panel* GetNavLeft( Panel *first = NULL );
-	Panel* GetNavRight( Panel *first = NULL );
-	Panel* GetNavToRelay( Panel *first = NULL );
-	Panel* GetNavActivate( Panel *first = NULL );
-	Panel* GetNavBack( Panel *first = NULL );
+	Panel* GetNavUp( Panel *first ); 
+	Panel* GetNavDown( Panel *first );
+	Panel* GetNavLeft( Panel *first );
+	Panel* GetNavRight( Panel *first );
+	Panel* GetNavToRelay( Panel *first );
+	Panel* GetNavActivate( Panel *first );
+	Panel* GetNavBack( Panel *first );
 
 	const char* GetNavUpName( void ) const { return m_sNavUpName.String(); }
 	const char* GetNavDownName( void ) const { return m_sNavDownName.String(); }
@@ -1020,7 +1020,7 @@ public:
 
 
 void VguiPanelGetSortedChildPanelList( Panel *pParentPanel, void *pSortedPanels );
-void VguiPanelGetSortedChildButtonList( Panel *pParentPanel, void *pSortedPanels, char *pchFilter = NULL, int nFilterType = 0 );
+void VguiPanelGetSortedChildButtonList( Panel *pParentPanel, void *pSortedPanels, char *pchFilter, int nFilterType = 0 );
 int VguiPanelNavigateSortedChildButtonList( void *pSortedPanels, int nDir );
 
 
