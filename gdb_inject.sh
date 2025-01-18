@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 GAME_NAME=hl2_linux
 LIB_PATH=$(pwd)/build/libronix.so
